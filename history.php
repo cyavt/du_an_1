@@ -40,7 +40,7 @@
                                     ?>
                                 </td>
                                 <td><?=$rows['datetime']?></td>
-                                <td class="text-center"><button class="btn btn-info btn-sm" type="button"><i class="fa fa-paste"></i></button></td>
+                                <td class="text-center"><button class="btn btn-info btn-sm" type="button"><i class="fa fa-eye"></i></button></td>
                             </tr>
                             <?php endforeach;?>
                         </tbody>

@@ -12,18 +12,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.4/sweetalert2.css" rel="stylesheet" type="text/css">
     <link href="../assets/css/datatables.min.css" rel="stylesheet">
     <style>
-        textarea {
-            width: 100%;
-            height: 100px;
-            resize: none;
-            -webkit-box-sizing: border-box;
-            /* Safari/Chrome, other WebKit */
-            -moz-box-sizing: border-box;
-            /* Firefox, other Gecko */
-            box-sizing: border-box;
-            /* Opera/IE 8+ */
-        }
-
         .load {
             width: 100%;
             height: 100%;
@@ -50,9 +38,9 @@
         th {
             text-align: center;
         }
+
         td {
             text-align: center;
         }
-
     </style>
 </head>

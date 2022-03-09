@@ -3,24 +3,24 @@ if (isset($session)) {
     require './pages/modal.php';
 }
 ?>
-<div class="load">
-    <img src="assets/css/patterns/loader.gif">
+<div class="load" style="display:none;">
+    <img src="../assets/css/patterns/loader.gif">
 </div>
-<script src="assets/js/jquery-2.1.1.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
-<script src="assets/js/plugins/dataTables/datatables.min.js"></script>
-<script src="assets/js/plugins/dataTables/dataTables.bootstrap4.min.js"></script>
-<script src="assets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-<script src="assets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="../assets/js/jquery-2.1.1.js"></script>
+<script src="../assets/js/bootstrap.min.js"></script>
+<script src="../assets/js/plugins/dataTables/datatables.min.js"></script>
+<script src="../assets/js/plugins/dataTables/dataTables.bootstrap4.min.js"></script>
+<script src="../assets/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="../assets/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 <!-- Peity -->
-<script src="assets/js/jquery.peity.min.js"></script>
+<script src="../assets/js/jquery.peity.min.js"></script>
 
-<script src="assets/js/inspinia.js"></script>
-<script src="assets/js/plugins/pace/pace.min.js"></script>
+<script src="../assets/js/inspinia.js"></script>
+<script src="../assets/js/plugins/pace/pace.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.4/sweetalert2.min.js"></script>
 
 <!-- Peity demo data -->
-<script src="assets/js/peity-demo.js"></script>
+<script src="../assets/js/peity-demo.js"></script>
 
 <script>
     <?php if (isset($_SESSION['username'])) : ?>

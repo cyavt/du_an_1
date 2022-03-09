@@ -1,51 +1,210 @@
 <?php
 session_start();
 require '../connect/config.php';
-if (isset($_POST['submit'])) {
-    $username = htmlspecialchars($_POST['username'], ENT_QUOTES);
-    $password = htmlspecialchars($_POST['password'], ENT_QUOTES);
-    $acc = mysqli_fetch_array(mysqli_query($connect, "SELECT * FROM `super_admin` WHERE `username`='" . $username . "'"));
-    if (!$acc) {
-        echo '<script>alert("Kiểm tra lại tài khoản hoặc mật khẩu !") </script>';
-    } else if ($password != $acc['password']) {
-        echo '<script>alert("Kiểm tra lại tài khoản hoặc mật khẩu !") </script>';
-    } else {
-        $_SESSION['super_admin'] = $username;
-        echo '<script>alert("Đăng nhập thành công");setTimeout(function(){ window.location.href = "./home.php?page"});</script>';
+if (!isset($_SESSION['super_admin'])) :
+    require('./login.php');
+else :
+    if (isset($_POST['submit'])) {
+        $check = mysqli_query($connect, "INSERT INTO `admin`(`id`, `uid`,`username`, `password`, `name`, `birthday`, `phone`, `email`, `address`) VALUES (NULL,'{$_POST['uid']}','{$_POST['username']}','{$_POST['password']}','{$_POST['name']}','{$_POST['birthday']}','{$_POST['phone']}','{$_POST['email']}','{$_POST['address']}')");
+        if ($check) {
+            echo '<script>alert("Đăng kí thành công , đang chuyển hướng ...");setTimeout(function(){ window.location.href = "./home?page"});</script>';
+        } else {
+            echo '<script>alert("Chưa tạo thành công vui lòng thử lại !");</script>';
+        }
     }
-}
 ?>
+    <html>
 
-<!DOCTYPE html>
-<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>TRANG CHỦ</title>
+        <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
+        <link href="../assets/css/animate.css" rel="stylesheet">
+        <link href="http://webapplayers.com/inspinia_admin-v2.9.4/md_skin/css/style.css" rel="stylesheet">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.4/sweetalert2.css" rel="stylesheet" type="text/css">
+        <style>
+            th{
+                font-size: 15px;
+            }
+            td{
+                font-size: 14px;
+            }
+        </style>
+    </head>
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login ADMIN</title>
-    <link href="asset/css/bootstrap.min.css" rel="stylesheet">
-    <link href="asset/font-awesome/css/font-awesome.css" rel="stylesheet">
-    <link href="asset/css/animate.css" rel="stylesheet">
-    <link href="asset/css/style.css" rel="stylesheet">
-</head>
+    <body class="top-navigation">
+        <div id="wrapper">
+            <div id="page-wrapper" class="gray-bg">
+                <div class="row border-bottom white-bg">
+                    <nav class="navbar navbar-expand-lg navbar-static-top" role="navigation">
+                        <strong class="navbar-brand">ADMIN +</strong>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-label="Toggle navigation">
+                            <i class="fa fa-reorder"></i>
+                        </button>
 
-<body class="gray-bg">
-    <div class="middle-box text-center loginscreen animated fadeInDown">
-        <div>
-            <h3>Welcome to ADMIN+</h3>
-            <p>Vui lòng đăng nhập để tiếp tục</p>
-            <form class="m-t" role="form" action="" method="POST">
-                <div class="form-group">
-                    <input type="text" class="form-control" name="username" placeholder="Username" required="">
+                        <div class="navbar-collapse collapse" id="navbar">
+                            <ul class="nav navbar-nav mr-auto">
+                                <li <?= ($_GET['page'] == null) ? 'class="active"' : null; ?>>
+                                    <a aria-expanded="false" role="button" href="./home?page">Tổng quang</a>
+                                </li>
+                                <li <?= ($_GET['page'] == 'add_agent') ? 'class="active"' : null; ?>>
+                                    <a aria-expanded="false" role="button" href="./home?page=add_agent">Thêm nhân viên</a>
+                                </li>
+                                <li <?= ($_GET['page'] == 'setting') ? 'class="active"' : null; ?>>
+                                    <a aria-expanded="false" role="button" href="./home?page=setting">Cài Đặt hệ thống</a>
+                                </li>
+                            </ul>
+                            <ul class="nav navbar-top-links navbar-right">
+                                <li>
+                                    <a href="../logout.php">
+                                        <i class="fa fa-sign-out"></i> Đăng xuất
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
                 </div>
-                <div class="form-group">
-                    <input type="password" class="form-control" name="password" placeholder="Password" required="">
+
+                <div class="wrapper wrapper-content">
+                    <div class="container">
+
+                        <?php if (isset($_GET['page'])) :
+                            switch ($_GET['page']) {
+                                case null:
+                        ?>
+                                    <div class="row animated fadeInRight">
+                                        <div class="col-lg-8">
+                                            <div class="ibox ">
+                                                <div class="ibox-content">
+                                                    <h3>Tình trạng số lượng truy cập của website</h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="ibox ">
+                                                <div class="ibox-title">
+                                                    <h3>Thông tin về server</h3>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    <div class="row">
+                                                        <h5>Hiển thị thông tin</h5>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row animated fadeInRight">
+                                        <div class="col-lg-12">
+                                            <div class="ibox ">
+                                                <div class="ibox-title">
+                                                    <h5>Thống kê số nhân viên hiện có</h5>
+                                                    <div class="ibox-tools">
+                                                        <a class="collapse-link">
+                                                            <i class="fa fa-chevron-up"></i>
+                                                        </a>
+                                                        <a class="close-link">
+                                                            <i class="fa fa-times"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-striped">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>#ID</th>
+                                                                    <th>Tên nhân viên</th>
+                                                                    <th>Ngày tháng năm sinh</th>
+                                                                    <th>Số điện thoại</th>
+                                                                    <th>Email</th>
+                                                                    <th>Địa chỉ</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <?php
+                                                                $result = mysqli_query($connect, "select * from admin");
+                                                                foreach ($result as $data) : ?>
+                                                                    <tr>
+                                                                        <td><?= $data['id']; ?></td>
+                                                                        <td><?= $data['name']; ?></td>
+                                                                        <td><?= $data['birthday']; ?></td>
+                                                                        <td><?= $data['phone']; ?></td>
+                                                                        <td><?= $data['email']; ?></td>
+                                                                        <td><?= $data['address']; ?></td>
+                                                                    </tr>
+                                                                <?php endforeach ?>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                <?php
+                                    break;
+                                    // TRANG CÀI ĐẶT HỆ THỐNG
+                                case 'setting':
+                                ?>
+                                    <div class="row animated fadeInRight">
+                                        <div class="col-lg-12">
+                                            <div class="ibox ">
+                                                <div class="ibox-content">
+                                                    <h3>TRANG CÀI ĐẶT HỆ THỐNG</h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php
+                                    break;
+                                    //TRANG THÊM NHÂN VIÊN
+                                case 'add_agent':
+                                ?>
+                                    <div class="row animated fadeInRight">
+                                        <div class="col-lg-12">
+                                            <div class="ibox ">
+                                                <div class="ibox-content">
+                                                    <form action="" method="POST">
+                                                        UID: <input type="text" name="uid" required><br><br>
+                                                        Tên nhân viên: <input type="text" name="name" required><br><br>
+                                                        Ngày tháng năm sinh: <input type="date" name="birthday" required><br><br>
+                                                        Số điện thoại: <input type="number" name="phone" required><br><br>
+                                                        Email: <input type="email" name="email" required><br><br>
+                                                        Địa chỉ: <input type="text" name="address" required><br><br>
+                                                        Tên đăng nhập: <input type="text" name="username" required><br><br>
+                                                        Mật khẩu: <input type="password" name="password" required><br><br>
+                                                        <button type="submit" name="submit">Gửi</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                        <?php
+                                    break;
+                            }
+                        else :
+                            header("location: ../admin/home?page");
+                        endif; ?>
+
+                    </div>
                 </div>
-                <button type="submit" name="submit" class="btn btn-primary block full-width m-b">Login</button>
-            </form>
-            <p class="m-t"> <small>ADMIN CONTROL PANEL &copy; 2022</small> </p>
+
+                <div class="footer">
+                    <div class="float-right">
+                        10GB of <strong>250GB</strong> Free
+                    </div>
+                    <div>
+                        UTE &copy; 20222
+                    </div>
+                </div>
+
+            </div>
         </div>
-    </div>
-</body>
-
-</html>
+    <?php
+    require('../pages/footer.php');
+endif;
+    ?>
