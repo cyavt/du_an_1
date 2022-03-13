@@ -8,7 +8,7 @@ $session = $_SESSION['username'];
 //die();
 ?>
 
-<body class="boxed-layout">
+<body><!-- class="boxed-layout" -->
     <div id="wrapper">
         <nav class="navbar-default navbar-static-side" role="navigation">
             <div class="sidebar-collapse">
