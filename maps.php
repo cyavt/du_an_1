@@ -55,4 +55,3 @@
         </div>
     </div>
 </div>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBH6z9pLP8iIZWzfXFBV_XUjrAY27Vo2XM&callback=initMap"></script>

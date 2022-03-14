@@ -11,7 +11,6 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.4/sweetalert2.css" rel="stylesheet" type="text/css">
     <link href="../assets/css/datatables.min.css" rel="stylesheet">
-    <script src="../assets/js/map.js"></script>
     <style>
         #map {
             position: relative;

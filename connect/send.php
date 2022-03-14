@@ -155,6 +155,15 @@ if (isset($_GET['key'])) :
                                 require('../pages/404.php');
                         }
                         break;
+                case 'getMaps':
+                        $getMaps = mysqli_query($connect, "SELECT * FROM `trash_can` ");
+                        foreach($getMaps as $value){
+                                $dataMaps = mysqli_fetch_row(mysqli_query($connect, "SELECT `garbagepercent` FROM `trash_can` WHERE id = '{$value['id']}'"));
+                                echo($dataMaps);
+                        }
+
+                        mysqli_close($connect);
+                        break;
         }
 else :
         die(HACKER);

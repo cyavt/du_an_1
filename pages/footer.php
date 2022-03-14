@@ -21,10 +21,154 @@ if (isset($session)) {
 
 <!-- Peity demo data -->
 <script src="../assets/js/peity-demo.js"></script>
+<!-- API MAPS -->
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBH6z9pLP8iIZWzfXFBV_XUjrAY27Vo2XM&callback=initMap"></script>
+<script>
+    $(document).ready(function() {
+        var id = 48
+        $.ajax({
+            url: "data/getMaps",
+            dataType: 'json',
+            success: function(data) {
+                    console.log(data)
+            },
+            error: function() {
+                console.log('lỗi')
+            }
+        });
+    });
 
+
+
+    var map;
+
+    function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 16,
+            center: new google.maps.LatLng(-33.91722, 151.23064),
+            mapTypeId: 'roadmap'
+        });
+
+        // defines custom icons
+        var icons = {
+            parking: {
+                icon: 'https://www.calibrepress.com/wp-content/themes/calibre/images/icon_facebook.png'
+            },
+            library: {
+                icon: 'https://maps.google.com/mapfiles/kml/shapes/library_maps.png'
+            },
+            info: {
+                icon: 'https://www.worldremit.com/images/mish/icon-apple.svg'
+            }
+        };
+
+        function addMarker(feature) {
+            var marker = new google.maps.Marker({
+                position: feature.position,
+                icon: icons[feature.type].icon,
+                map: map
+            });
+        }
+
+        // I wrote this - don't know if it works...
+        function addInfoWindow(feature) {
+            // this part is from https://developers.google.com/maps/documentation/javascript/infowindows
+            var infowindow = new google.maps.InfoWindow({
+                content: features.content
+            });
+        }
+
+        // defines locations
+        var features = [{
+            position: new google.maps.LatLng(-33.91721, 151.22630),
+            type: 'library',
+            content: 'Info 1',
+        }, {
+            position: new google.maps.LatLng(-33.91539, 151.22820),
+            type: 'info',
+            content: 'Info 2'
+        }, {
+            position: new google.maps.LatLng(-33.91747, 151.22912),
+            type: 'library',
+            content: 'Info 3'
+        }, {
+            position: new google.maps.LatLng(-33.91910, 151.22907),
+            type: 'info',
+            content: 'Info 3'
+        }, {
+            position: new google.maps.LatLng(-33.91725, 151.23011),
+            type: 'info',
+            content: 'Info 4'
+        }, {
+            position: new google.maps.LatLng(-33.91872, 151.23089),
+            type: 'info',
+            content: 'Info 5'
+        }, {
+            position: new google.maps.LatLng(-33.91784, 151.23094),
+            type: 'info',
+            content: 'Info 6'
+        }, {
+            position: new google.maps.LatLng(-33.91682, 151.23149),
+            type: 'info',
+            content: 'Info 7'
+        }, {
+            position: new google.maps.LatLng(-33.91790, 151.23463),
+            type: 'info'
+        }, {
+            position: new google.maps.LatLng(-33.91666, 151.23468),
+            type: 'info',
+            content: 'Info 8'
+        }, {
+            position: new google.maps.LatLng(-33.916988, 151.233640),
+            type: 'info',
+            content: 'Info 9'
+        }, {
+            position: new google.maps.LatLng(-33.91662347903106, 151.22879464019775),
+            type: 'parking',
+            content: 'Pkng 1'
+        }, {
+            position: new google.maps.LatLng(-33.916365282092855, 151.22937399734496),
+            type: 'parking',
+            content: 'Pkng 2'
+        }, {
+            position: new google.maps.LatLng(-33.91665018901448, 151.2282474695587),
+            type: 'parking',
+            content: 'Pkng 3'
+        }, {
+            position: new google.maps.LatLng(-33.919543720969806, 151.23112279762267),
+            type: 'parking',
+            content: 'Pkng 4'
+        }, {
+            position: new google.maps.LatLng(-33.91608037421864, 151.23288232673644),
+            type: 'parking',
+            content: 'Pkng 5'
+        }, {
+            position: new google.maps.LatLng(-33.91851096391805, 151.2344058214569),
+            type: 'parking',
+            content: 'Pkng 6'
+        }, {
+            position: new google.maps.LatLng(-33.91818154739766, 151.2346203981781),
+            type: 'parking',
+            content: 'Pkng 7'
+        }, {
+            position: new google.maps.LatLng(-33.91727341958453, 151.23348314155578),
+            type: 'library',
+            content: 'La Biblioteca'
+        }];
+
+        // adds markers via the features table
+        for (var i = 0, feature; feature = features[i]; i++) {
+            addMarker(feature);
+            addInfoWindow(feature);
+        }
+    }
+</script>
+
+
+<!-- Data -->
 <script>
     <?php if (isset($_SESSION['username'])) : ?>
-        $('#button_search').on('click', function(){
+        $('#button_search').on('click', function() {
             $('#result_search').html('Không tìm thấy dữ liệu')
         })
         /* Input tên nhân viên khi bắt đầu loading*/
@@ -269,35 +413,6 @@ if (isset($session)) {
                 });
             });
         });
-
-
-        /* $(document).ready(function() {
-            $('table').DataTable({
-                responsive: true,
-                dom: '<"html5buttons"B>lTfgitp',
-                buttons: [],
-                "lengthMenu": [
-                    [5, 10, 25, 50, -1],
-                    [5, 10, 25, 50, "All"]
-                ],
-                "language": {
-                    "search": "Tìm Kiếm",
-                    "zeroRecords": "Không tìm thấy kết quả",
-                    "paginate": {
-                        "first": "Về Đầu",
-                        "last": "Về Cuối",
-                        "next": "Tiến",
-                        "previous": "Lùi"
-                    },
-                    "info": "Hiển thị _START_ đến _END_ của _TOTAL_ mục",
-                    "infoEmpty": "Hiển thị 0 đến 0 của 0 mục",
-                    "lengthMenu": "Hiển thị _MENU_ mục",
-                    "infoFiltered": "(Được lọc từ _MAX_ Mục)",
-                    "loadingRecords": "Đang tải...",
-                    "emptyTable": "Không có gì để hiển thị"
-                }
-            });
-        }); */
 
         // Upgrade button class name
         $.fn.dataTable.Buttons.defaults.dom.button.className = 'btn btn-white btn-sm';
