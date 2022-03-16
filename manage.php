@@ -1,9 +1,9 @@
 <div class="animated fadeInRight" id="content1">
     <div class="row">
         <div class="col-lg-12">
-            <div class="ibox ">
+            <div class="ibox">
                 <div class="ibox-title">
-                    <h5>DANH SÁCH THÙNG RÁC</h5>
+                    <h5  class="text-muted text-center">DANH SÁCH THÙNG RÁC</h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
@@ -76,25 +76,25 @@
         <div class="social-body">
             <form class="form-horizontal">
                 <div class="form-group"><label class="col-sm-2 control-label">TRASH CAN UID</label>
-                    <div class="col-sm-10"><input type="text" id="vaL0" class="form-control" disabled></div>
+                    <div class="col-sm-10"><input type="text" class="form-control see0" disabled></div>
                 </div>
                 <div class="form-group"><label class="col-sm-2 control-label">Họ và tên</label>
-                    <div class="col-sm-10"><input type="text" id="vaL1" class="form-control" disabled></div>
+                    <div class="col-sm-10"><input type="text" class="form-control see1" disabled></div>
                 </div>
                 <div class="form-group"><label class="col-sm-2 control-label">Ngày sinh</label>
-                    <div class="col-sm-10"><input type="text" id="vaL2" class="form-control" disabled></div>
+                    <div class="col-sm-10"><input type="text" class="form-control see2" disabled></div>
                 </div>
                 <div class="form-group"><label class="col-sm-2 control-label">Số điện thoại</label>
-                    <div class="col-sm-10"><input type="text" id="vaL3" class="form-control" disabled></div>
+                    <div class="col-sm-10"><input type="text" class="form-control see3" disabled></div>
                 </div>
                 <div class="form-group"><label class="col-sm-2 control-label">Ngày bị nhiễm F0</label>
-                    <div class="col-sm-10"><input type="text" id="vaL4" class="form-control" disabled></div>
+                    <div class="col-sm-10"><input type="text" class="form-control see4" disabled></div>
                 </div>
                 <div class="form-group"><label class="col-sm-2 control-label">Email</label>
-                    <div class="col-sm-10"><input type="text" id="vaL5" class="form-control" disabled></div>
+                    <div class="col-sm-10"><input type="text" class="form-control see5" disabled></div>
                 </div>
                 <div class="form-group"><label class="col-sm-2 control-label">Địa chỉ</label>
-                    <div class="col-sm-10"><input type="text" id="vaL6" class="form-control" disabled></div>
+                    <div class="col-sm-10"><input type="text" class="form-control see6" disabled></div>
                 </div>
             </form>
             <p>

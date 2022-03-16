@@ -24,13 +24,13 @@ if (isset($session)) {
 <!-- API MAPS -->
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBH6z9pLP8iIZWzfXFBV_XUjrAY27Vo2XM&callback=initMap"></script>
 <script>
+    // Lấy dữ liệu
     $(document).ready(function() {
-        var id = 48
         $.ajax({
             url: "data/getMaps",
-            dataType: 'json',
+            //dataType: 'json',
             success: function(data) {
-                    console.log(data)
+                //console.log(data)
             },
             error: function() {
                 console.log('lỗi')
@@ -39,7 +39,7 @@ if (isset($session)) {
     });
 
 
-
+    //Hiển thị ra icon maps ra màn hình
     var map;
 
     function initMap() {
@@ -171,20 +171,27 @@ if (isset($session)) {
         $('#button_search').on('click', function() {
             $('#result_search').html('Không tìm thấy dữ liệu')
         })
+
+
         /* Input tên nhân viên khi bắt đầu loading*/
         /* $(window).on('load', function(event) {
             var userName = $('#userName').attr('value')
             $('#Name').html(userName)
         }) */
-        /* Input dữ liệu id user */
+
+
+        // Input dữ liệu id user
         function add(id) {
             $('#iput').val(id);
         }
+
+
         /* BACK */
         $("#btn1").on('click', (function(e) {
             $("#content1").show()
             $("#content2").hide()
         }));
+
 
         /* Thay đổi thông tin nhân viên */
         $("#change").on('submit', (function(e) {
@@ -217,6 +224,7 @@ if (isset($session)) {
                 }
             });
         }));
+
 
         /* THÊM USER */
         $("#Add").on('submit', (function(e) {
@@ -252,6 +260,7 @@ if (isset($session)) {
             });
         }));
 
+
         /* CHỈNH SỬA USER */
         $("#Edit").on('submit', (function(e) {
             e.preventDefault();
@@ -286,6 +295,7 @@ if (isset($session)) {
             });
         }));
 
+
         /* THÊM THÙNG RÁC MỚI */
         $("#Addtrash").on('submit', (function(e) {
             e.preventDefault();
@@ -316,6 +326,7 @@ if (isset($session)) {
                 }
             });
         }));
+
 
         /* XÓA THÙNG RÁC */
         function xoatrash(id) {
@@ -352,6 +363,7 @@ if (isset($session)) {
             });
         };
 
+
         /* XEM CHI TIẾT USER */
         function xem(id) {
             $("#content1").hide()
@@ -364,11 +376,13 @@ if (isset($session)) {
                 },
                 dataType: 'json',
                 success: function(data) {
+                    //xem
                     for (let i = 0; i < 6; i++) {
-                        var a = '#vaL' + i;
+                        var a = '.see' + i;
                         $(a).val(data[i])
                     }
-                    $('#vaL6').val(data[6] + ', ' + data[7] + ', ' + data[8] + ', ' + data[9])
+                    $('.see6').val(data[6] + ', ' + data[7] + ', ' + data[8] + ', ' + data[9])
+                    //xem -> edit
                     for (let i = 0; i < 10; i++) {
                         var a = '#val' + i;
                         $(a).val(data[i])
