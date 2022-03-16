@@ -40,7 +40,7 @@
                                     ?>
                                 </td>
                                 <td><?=$rows['datetime']?></td>
-                                <td class="text-center"><button class="btn btn-info btn-sm" data-toggle="modal" data-target="#btn_log" type="button" onclick="xem('<?=$rows['trash_can_id']?>')"><i class="fa fa-eye"></i></button></td>
+                                <td class="text-center"><button class="btn btn-info btn-sm" type="button"><i class="fa fa-eye"></i></button></td>
                             </tr>
                             <?php endforeach;?>
                         </tbody>
