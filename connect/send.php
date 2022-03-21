@@ -156,12 +156,16 @@ if (isset($_GET['key'])) :
                         }
                         break;
                 case 'getMaps':
-                        $getMaps = mysqli_query($connect, "SELECT * FROM `trash_can` ");
-                        foreach($getMaps as $value){
-                                $dataMaps = mysqli_fetch_row(mysqli_query($connect, "SELECT `garbagepercent` FROM `trash_can` WHERE id = '{$value['id']}'"));
-                                echo($dataMaps);
+                        $result = mysqli_query($connect, "SELECT `location` , `garbagepercent` FROM `trash_can`");
+                        if (mysqli_num_rows($result) > 0) {
+                                $rows = array();
+                                while ($r = mysqli_fetch_assoc($result)) {
+                                        $rows[] = $r;
+                                }
+                                echo json_encode($rows);
+                        } else {
+                                echo '{"result": "no data found"}';
                         }
-
                         mysqli_close($connect);
                         break;
         }

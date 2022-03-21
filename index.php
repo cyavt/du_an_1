@@ -8,7 +8,7 @@ $session = $_SESSION['username'];
 //die();
 ?>
 
-<body><!-- class="boxed-layout" -->
+<body class="boxed-layout">
     <div id="wrapper">
         <nav class="navbar-default navbar-static-side" role="navigation">
             <div class="sidebar-collapse">
@@ -211,7 +211,7 @@ $session = $_SESSION['username'];
                         <div class="social-feed-separated">
                             <div class="social-feed-box">
                                 <div class="social-avatar">
-                                    <p style="color: blue"><strong><?php echo !isset($session) ? 'Điều trước tiên hãy đăng nhập' : 'Chào mừng bạn đến với hệ thống quản lý'; ?></strong></p>
+                                    <h3 style="color: #2e80b3" class="text-center"><?php echo !isset($session) ? 'Điều trước tiên hãy đăng nhập' : 'Chào mừng bạn đến với hệ thống quản lý !'; ?></h3>
 
                                     <?php if (isset($session)) :
                                         switch ($_GET['page']):
@@ -219,6 +219,7 @@ $session = $_SESSION['username'];
                                             case 'change':
                                                 $row = mysqli_fetch_array(mysqli_query($connect, "SELECT * FROM `admin` WHERE `username`='$session'"));
                                     ?>
+                                                <hr>
                                                 <form id="change" method="POST" action="" class="form-horizontal">
                                                     <div class="form-group"><label class="col-sm-2 control-label">UID</label>
                                                         <div class="col-sm-10"><input type="text" name="uid" value="<?= $row['uid']; ?>" class="form-control" readonly></div>
@@ -259,6 +260,7 @@ $session = $_SESSION['username'];
                                                 break;
                                                 /* THÊM THÙNG RÁC MỚI */
                                             case 'add': ?>
+                                                <hr>
                                                 <form id="Addtrash" method="POST" action="" class="form-horizontal">
                                                     <div class="form-group"><label class="col-sm-2 control-label">THÊM MÃ TOKEN</label>
                                                         <div class="col-sm-10"><input type="text" name="token" value="" class="form-control" autocomplete="off" placeholder="Vui lòng nhập chính xác"></div>

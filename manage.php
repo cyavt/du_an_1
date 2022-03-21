@@ -3,7 +3,7 @@
         <div class="col-lg-12">
             <div class="ibox ">
                 <div class="ibox-title">
-                    <h5>DANH SÁCH THÙNG RÁC</h5>
+                    <h5 class="text-muted">DANH SÁCH THÙNG RÁC</h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
@@ -36,7 +36,7 @@
                                         <td><?= $row['id']; ?></td>
                                         <td><?= (isset($name['name'])) ? $name['name'] : '<i class="label label-danger">inactive</i>'; ?></td>
                                         <td><a href="https://www.google.com/maps/place/<?= $row['location']; ?>" target="_blank"><?= $row['location']; ?></a></td>
-                                        <td><span class="pie"><?= number_format($row['weight']); ?>/5</span> <?= number_format($row['weight']); ?>kg</td>
+                                        <td><span class="pie"><?= number_format($row['weight']); ?>/10</span> <?= number_format($row['weight']); ?>kg</td>
                                         <td class="project-completion">
                                             <small><?= number_format($row['garbagepercent']); ?>%</small>
                                             <div class="progress progress-mini">

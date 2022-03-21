@@ -22,7 +22,6 @@
                                 <th>Cân nặng</th>
                                 <th>Nhân viên thu gom</th>
                                 <th>Thời gian</th>
-                                <th>Thao tác</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -40,7 +39,6 @@
                                     ?>
                                 </td>
                                 <td><?=$rows['datetime']?></td>
-                                <td class="text-center"><button class="btn btn-info btn-sm" type="button"><i class="fa fa-eye"></i></button></td>
                             </tr>
                             <?php endforeach;?>
                         </tbody>
