@@ -356,11 +356,11 @@ if (isset($session)) {
                 dom: '<"html5buttons"B>lTfgitp',
                 buttons: [{
                         extend: 'excel',
-                        title: 'ExampleFile'
+                        title: 'Danh sách quản lý'
                     },
                     {
                         extend: 'pdf',
-                        title: 'ExampleFile'
+                        title: 'Danh sách quản lý'
                     },
 
                     {

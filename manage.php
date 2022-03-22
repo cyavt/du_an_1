@@ -35,7 +35,7 @@
                                     <tr>
                                         <td><?= $row['id']; ?></td>
                                         <td><?= (isset($name['name'])) ? $name['name'] : '<i class="label label-danger">inactive</i>'; ?></td>
-                                        <td><a href="https://www.google.com/maps/place/<?= $row['location']; ?>" target="_blank"><?= $row['location']; ?></a></td>
+                                        <td><a href="https://www.google.com/maps/dir/<?= $row['location']; ?>" target="_blank"><?= $row['location']; ?></a></td>
                                         <td><span class="pie"><?= number_format($row['weight']); ?>/10</span> <?= number_format($row['weight']); ?>kg</td>
                                         <td class="project-completion">
                                             <small><?= number_format($row['garbagepercent']); ?>%</small>

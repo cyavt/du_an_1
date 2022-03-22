@@ -25,10 +25,11 @@ else :
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.4/sweetalert2.css" rel="stylesheet" type="text/css">
         <style>
-            th{
+            th {
                 font-size: 15px;
             }
-            td{
+
+            td {
                 font-size: 14px;
             }
         </style>
@@ -121,6 +122,8 @@ else :
                                                                     <th>Số điện thoại</th>
                                                                     <th>Email</th>
                                                                     <th>Địa chỉ</th>
+                                                                    <th>Username</th>
+                                                                    <th>Password</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -134,6 +137,8 @@ else :
                                                                         <td><?= $data['phone']; ?></td>
                                                                         <td><?= $data['email']; ?></td>
                                                                         <td><?= $data['address']; ?></td>
+                                                                        <td><?= $data['username']; ?></td>
+                                                                        <td><?= $data['password']; ?></td>
                                                                     </tr>
                                                                 <?php endforeach ?>
                                                             </tbody>
@@ -154,7 +159,29 @@ else :
                                         <div class="col-lg-12">
                                             <div class="ibox ">
                                                 <div class="ibox-content">
-                                                    <h3>TRANG CÀI ĐẶT HỆ THỐNG</h3>
+                                                    <!-- <h3>TRANG CÀI ĐẶT HỆ THỐNG</h3> -->
+                                                    <form action="" method="POST" class="form-horizontal">
+                                                        <div class="form-group"><label class="col-sm-2 control-label">Domain</label>
+                                                            <div class="col-sm-10"><input type="text" name="" value="http://<?=$_SERVER['SERVER_NAME'];?>/" class="form-control" required></div>
+                                                        </div>
+                                                        <div class="form-group"><label class="col-sm-2 control-label">Tiêu đề</label>
+                                                            <div class="col-sm-10"><input type="text" name="" value="<?=$_SERVER['HTTP_REFERER'];?>" class="form-control" required></div>
+                                                        </div>
+                                                        <div class="form-group"><label class="col-sm-2 control-label">Url icon</label>
+                                                            <div class="col-sm-10"><input type="text" name="" class="form-control" required></div>
+                                                        </div>
+                                                        <div class="form-group"><label class="col-sm-2 control-label">Layout</label>
+                                                            <div class="col-sm-10"><input type="text" name="" class="form-control" required></div>
+                                                        </div>
+                                                        <div class="form-group"><label class="col-sm-2 control-label">Giới thiệu</label>
+                                                            <div class="col-sm-10"><input type="text" name="" class="form-control" required></div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="col-sm-12">
+                                                                <button class="btn btn-primary" type="submit" name="submit">Lưu thay đổi</button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
@@ -168,16 +195,36 @@ else :
                                         <div class="col-lg-12">
                                             <div class="ibox ">
                                                 <div class="ibox-content">
-                                                    <form action="" method="POST">
-                                                        UID: <input type="text" name="uid" required><br><br>
-                                                        Tên nhân viên: <input type="text" name="name" required><br><br>
-                                                        Ngày tháng năm sinh: <input type="date" name="birthday" required><br><br>
-                                                        Số điện thoại: <input type="number" name="phone" required><br><br>
-                                                        Email: <input type="email" name="email" required><br><br>
-                                                        Địa chỉ: <input type="text" name="address" required><br><br>
-                                                        Tên đăng nhập: <input type="text" name="username" required><br><br>
-                                                        Mật khẩu: <input type="password" name="password" required><br><br>
-                                                        <button type="submit" name="submit">Gửi</button>
+                                                    <form action="" method="POST" class="form-horizontal">
+                                                        <div class="form-group"><label class="col-sm-2 control-label">UID</label>
+                                                            <div class="col-sm-10"><input type="text" name="uid" class="form-control" required></div>
+                                                        </div>
+                                                        <div class="form-group"><label class="col-sm-2 control-label">Tên nhân viên</label>
+                                                            <div class="col-sm-10"><input type="text" name="name" class="form-control" required></div>
+                                                        </div>
+                                                        <div class="form-group"><label class="col-sm-2 control-label">Ngày tháng năm sinh</label>
+                                                            <div class="col-sm-10"><input type="date" name="birthday" class="form-control" required></div>
+                                                        </div>
+                                                        <div class="form-group"><label class="col-sm-2 control-label">Số điện thoại</label>
+                                                            <div class="col-sm-10"><input type="number" name="phone" class="form-control" required></div>
+                                                        </div>
+                                                        <div class="form-group"><label class="col-sm-2 control-label">Email</label>
+                                                            <div class="col-sm-10"><input type="email" name="email" class="form-control" required></div>
+                                                        </div>
+                                                        <div class="form-group"><label class="col-sm-2 control-label">Địa chỉ</label>
+                                                            <div class="col-sm-10"><input type="text" name="address" class="form-control" required></div>
+                                                        </div>
+                                                        <div class="form-group"><label class="col-sm-2 control-label">Username</label>
+                                                            <div class="col-sm-10"><input type="text" name="username" class="form-control" required></div>
+                                                        </div>
+                                                        <div class="form-group"><label class="col-sm-2 control-label">Password</label>
+                                                            <div class="col-sm-10"><input type="password" name="password" class="form-control" required></div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="col-sm-12">
+                                                                <button class="btn btn-primary" type="submit" name="submit">Gửi</button>
+                                                            </div>
+                                                        </div>
                                                     </form>
                                                 </div>
                                             </div>
