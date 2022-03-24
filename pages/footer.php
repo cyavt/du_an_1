@@ -80,7 +80,7 @@ if (isset($session)) {
                             lng: parseFloat(substrings[1])
                         },
                         type: status,
-                        content: 'Lưu trữ '+ result['garbagepercent'] + ' %',
+                        content: 'Lưu trữ ' + result['garbagepercent'] + ' %',
                     }
                 })
                 //console.log(features)
@@ -100,9 +100,6 @@ if (isset($session)) {
 <!-- Data -->
 <script>
     <?php if (isset($_SESSION['username'])) : ?>
-        $('#button_search').on('click', function() {
-            $('#result_search').html('Không tìm thấy dữ liệu')
-        })
         /* Input tên nhân viên khi bắt đầu loading*/
         /* $(window).on('load', function(event) {
             var userName = $('#userName').attr('value')
@@ -343,6 +340,74 @@ if (isset($session)) {
                         swal("Đã xảy ra lỗi!", "Đã xảy ra lỗi cục bộ, vui lòng thử lại!", "error")
                     }
                 });
+            });
+        });
+
+
+        /* Lọc Tìm kiếm */
+        $(function() {
+            $.getJSON("vietnam.json", function(data) {
+                //console.log(data)
+                $('#city').change(function() {
+                    var valCity = $(this).val();
+                    $('#district').empty();
+                    for (i = 0; i < data[valCity]['districts'].length; i++) {
+                        $('#district').append($('<option>', {
+                            value: i,
+                            text: data[valCity]['districts'][i]['name']
+                        }));
+                    };
+
+                    $('#district').change(function() {
+                        var valDistrict = $(this).val();
+                        $('#ward').empty();
+                        for (j = 0; j < data[valCity]['districts'][valDistrict]['wards'].length; j++) {
+                            $('#ward').append($('<option>', {
+                                value: j,
+                                text: data[valCity]['districts'][valDistrict]['wards'][j]['name']
+                            }));
+                        };
+                    });
+                });
+            });
+        });
+
+        $('#button_search').on('click', function() {
+            var keyword = $('#city :selected').text();
+            if (keyword == '') {
+                keyword = 0
+            }
+            console.log(keyword)
+            $.ajax({
+                url: "data/search",
+                type: "POST",
+                data: {
+                    keyword: keyword
+                },
+                dataType: 'json',
+                success: function(data) {
+                    if (data['result'] == 'no data found') {
+                        $('#result_search').empty();
+                        $('#result_search').append(`<h3 class="text-muted text-center">Không tìm thấy kết quả</h3>`)
+                    } else {
+                        $('#result_search').empty();
+                        data.map(function(item) {
+                            $('#result_search').append(`
+            <div class="col-lg-4">
+                <div class="panel panel-success">
+                    <div class="panel-heading text-center">Thông tin tìm kiếm</div>
+                    <div class="panel-body">
+                        <p>Tên: ${item['name']} </p>
+                        <p>Địa chỉ: ${item['address']}, ${item['ward']}, ${item['district']}, ${item['city']} </p>
+                    </div>
+                </div>
+            </div>`);
+                        });
+                    }
+                },
+                error: function() {
+                    console.log('Lỗi')
+                }
             });
         });
 

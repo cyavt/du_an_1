@@ -144,6 +144,24 @@ if (isset($_GET['key'])) :
                                 require('../pages/404.php');
                         }
                         break;
+                case 'search':
+                        if (isset($_POST['keyword'])) {
+                                $keyword = $_POST['keyword'];
+                                $result_search = mysqli_query($connect, "SELECT * FROM user WHERE city like '%$keyword%'");
+                                if (mysqli_num_rows($result_search) > 0) {
+                                        $rows = array();
+                                        while ($r = mysqli_fetch_assoc($result_search)) {
+                                                $rows[] = $r;
+                                        }
+                                        echo json_encode($rows);
+                                } else {
+                                        echo '{"result": "no data found"}';
+                                }
+                                mysqli_close($connect);
+                        } else {
+                                require('../pages/404.php');
+                        }
+                        break;
                 case 'xem':
                         if (isset($_POST['id'])) {
                                 $xem = mysqli_fetch_array(mysqli_query($connect, "SELECT * FROM `user` WHERE `trash_can_id`='{$_POST['id']}'"));

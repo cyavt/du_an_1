@@ -12,3 +12,7 @@ if ($connect->connect_error) {
 mysqli_set_charset($connect, "utf8");
 date_default_timezone_set('Asia/Ho_Chi_Minh');
 $datetime = date('Y-m-d H:i:s');
+
+$json_url = 'vietnam.json';
+$json = file_get_contents($json_url, false);
+$data = json_decode($json, TRUE);

@@ -15,36 +15,29 @@
             <div class="col-sm-4">
                 <div class="form-group">
                     <label class="col-form-label" for="status">Tỉnh / Thành phố</label>
-                    <select name="calc_shipping_provinces" class="form-control" required>
-                        <option value="" selected>---</option>
-                        <?php $data_city = mysqli_query($connect, "SELECT * FROM `user`");
-                        foreach ($data_city as $row) : ?>
-                            <option value="<?= $row['city']; ?>"><?= $row['city']; ?></option>
-                        <?php endforeach; ?>
+                    <select class="form-control" id="city">
+                        <option value="" selected>Chọn tỉnh thành</option>
+                        <?php
+                        for ($i = 0; $i < count($data); $i++) {
+                        ?>
+                            <option value="<?= $i; ?>"><?= $data[$i]['name']; ?></option>
+                        <?php } ?>
                     </select>
                 </div>
             </div>
             <div class="col-sm-4">
                 <div class="form-group">
-                    <label class="col-form-label" for="status">Quận / Huyện</label>
-                    <select name="calc_shipping_district" class="form-control" required>
-                        <option value="" selected>---</option>
-                        <?php $data_city = mysqli_query($connect, "SELECT * FROM `user`");
-                        foreach ($data_city as $row) : ?>
-                            <option value=""><?= $row['district']; ?></option>
-                        <?php endforeach; ?>
+                    <label class="col-form-label" for="status">Quận / Huyện / Tp</label>
+                    <select class="form-control" id="district">
+                        <option value="" selected>Chọn quận huyện</option>
                     </select>
                 </div>
             </div>
-            <div class="col-sm-2 b-r">
+            <div class="col-sm-4">
                 <div class="form-group">
                     <label class="col-form-label" for="status">Xã / Phường</label>
-                    <select id="calc_shipping_ward" class="form-control">
-                        <option value="" selected>---</option>
-                        <?php $data_city = mysqli_query($connect, "SELECT * FROM `user`");
-                        foreach ($data_city as $row) : ?>
-                            <option value=""><?= $row['ward']; ?></option>
-                        <?php endforeach; ?>
+                    <select class="form-control" id="ward">
+                        <option value="" selected>Chọn phường xã</option>
                     </select>
                 </div>
             </div>
@@ -57,6 +50,6 @@
         </div>
     </div>
     <div class="row">
-        <h3 class="text-muted text-center" id="result_search"></h3>
+        <div id="result_search"></div>
     </div>
 </div>
