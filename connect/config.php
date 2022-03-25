@@ -1,6 +1,7 @@
 <?php
 define('HACKER', 'Lỗi không thể truy cập đường dẫn này !');
 define('KEYMAPAPI', 'AIzaSyBH6z9pLP8iIZWzfXFBV_XUjrAY27Vo2XM');
+define('TOADOTRUNGTAM', '16.0765639, 108.2143147');
 define('SERVERNAME', 'localhost');
 define('USERNAME', 'root');
 define('PASSWORD', '');
