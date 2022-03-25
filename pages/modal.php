@@ -37,24 +37,24 @@
                 <input type="email" class="form-control" name="email" placeholder="Email">
               </div>
             </div>
-            <div class="form-group"><label class="col-sm-2 control-label">Địa chỉ</label>
+            <div class="form-group"><label class="col-sm-2 control-label">Tỉnh, TP</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" name="address" placeholder="Địa chỉ (số nhà, đường)">
-              </div>
-            </div>
-            <div class="form-group"><label class="col-sm-2 control-label">Xã, phường</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" name="ward" placeholder="Xã, phường">
+                <input type="text" class="form-control" name="city" placeholder="Tỉnh, TP">
               </div>
             </div>
             <div class="form-group"><label class="col-sm-2 control-label">Quận, huyện</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" name="district" placeholder="Quận, huyện">
+                <input type="text" class="form-control" name="district" placeholder="Quận/huyện...">
               </div>
             </div>
-            <div class="form-group"><label class="col-sm-2 control-label">Tỉnh, TP</label>
+            <div class="form-group"><label class="col-sm-2 control-label">Xã, phường</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" name="city" placeholder="Tỉnh, TP">
+                <input type="text" class="form-control" name="ward" placeholder="Xã/phường...">
+              </div>
+            </div>
+            <div class="form-group"><label class="col-sm-2 control-label">Địa chỉ</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" name="address" placeholder="Địa chỉ (số nhà, đường)">
               </div>
             </div>
             <div class="form-group text-center">

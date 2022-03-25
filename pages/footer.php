@@ -24,7 +24,7 @@ if (isset($session)) {
 <!-- API MAPS -->
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBH6z9pLP8iIZWzfXFBV_XUjrAY27Vo2XM&callback=initMap"></script>
 <script>
-    var map;
+    var map
 
     function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
@@ -65,7 +65,8 @@ if (isset($session)) {
 
                 var features = data.map((result, number, arr) => {
                     let str = result['location']
-                    let substrings = str.split(", ")
+                    string = str.replace(/\s/g, '')
+                    let substrings = string.split(",")
                     if (result['garbagepercent'] <= 30) {
                         var status = 'status0'
                     } else if (result['garbagepercent'] <= 80) {
@@ -351,6 +352,7 @@ if (isset($session)) {
                 $('#city').change(function() {
                     var valCity = $(this).val();
                     $('#district').empty();
+                    $('#district').append(`<option value="" selected>Chọn quận huyện</option>`)
                     for (i = 0; i < data[valCity]['districts'].length; i++) {
                         $('#district').append($('<option>', {
                             value: i,
@@ -361,6 +363,7 @@ if (isset($session)) {
                     $('#district').change(function() {
                         var valDistrict = $(this).val();
                         $('#ward').empty();
+                        $('#ward').append(`<option value="" selected>Chọn phường xã</option>`)
                         for (j = 0; j < data[valCity]['districts'][valDistrict]['wards'].length; j++) {
                             $('#ward').append($('<option>', {
                                 value: j,
@@ -370,29 +373,40 @@ if (isset($session)) {
                     });
                 });
             });
-        });
 
-        $('#button_search').on('click', function() {
-            var keyword = $('#city :selected').text();
-            if (keyword == '') {
-                keyword = 0
-            }
-            console.log(keyword)
-            $.ajax({
-                url: "data/search",
-                type: "POST",
-                data: {
-                    keyword: keyword
-                },
-                dataType: 'json',
-                success: function(data) {
-                    if (data['result'] == 'no data found') {
-                        $('#result_search').empty();
-                        $('#result_search').append(`<h3 class="text-muted text-center">Không tìm thấy kết quả</h3>`)
+            $('#button_search').on('click', function() {
+                var keyword = $('#ward :selected').text();
+                if (keyword != 'Chọn phường xã') {
+                    keyword = $('#ward :selected').text();
+                } else {
+                    keyword = $('#district :selected').text();
+                    if (keyword != 'Chọn quận huyện') {
+                        keyword = $('#district :selected').text();
                     } else {
-                        $('#result_search').empty();
-                        data.map(function(item) {
-                            $('#result_search').append(`
+                        keyword = $('#city :selected').text();
+                        if (keyword != 'Chọn tỉnh thành') {
+                            keyword = $('#city :selected').text();
+                        } else {
+                            keyword = 0;
+                        }
+                    }
+                }
+                //console.log(keyword)
+                $.ajax({
+                    url: "data/search",
+                    type: "POST",
+                    data: {
+                        keyword: keyword
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data['result'] == 'no data found') {
+                            $('#result_search').empty();
+                            $('#result_search').append(`<h3 class="text-muted text-center">Không tìm thấy kết quả</h3>`)
+                        } else {
+                            $('#result_search').empty();
+                            data.map(function(item) {
+                                $('#result_search').append(`
             <div class="col-lg-4">
                 <div class="panel panel-success">
                     <div class="panel-heading text-center">Thông tin tìm kiếm</div>
@@ -402,14 +416,16 @@ if (isset($session)) {
                     </div>
                 </div>
             </div>`);
-                        });
+                            });
+                        }
+                    },
+                    error: function() {
+                        console.log('Lỗi')
                     }
-                },
-                error: function() {
-                    console.log('Lỗi')
-                }
+                });
             });
         });
+
 
         // Upgrade button class name
         $.fn.dataTable.Buttons.defaults.dom.button.className = 'btn btn-white btn-sm';

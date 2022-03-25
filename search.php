@@ -18,6 +18,8 @@
                     <select class="form-control" id="city">
                         <option value="" selected>Chọn tỉnh thành</option>
                         <?php
+                        $json = file_get_contents('assets/vietnam.json', false);
+                        $data = json_decode($json, TRUE);
                         for ($i = 0; $i < count($data); $i++) {
                         ?>
                             <option value="<?= $i; ?>"><?= $data[$i]['name']; ?></option>

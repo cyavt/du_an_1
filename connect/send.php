@@ -147,7 +147,7 @@ if (isset($_GET['key'])) :
                 case 'search':
                         if (isset($_POST['keyword'])) {
                                 $keyword = $_POST['keyword'];
-                                $result_search = mysqli_query($connect, "SELECT * FROM user WHERE city like '%$keyword%'");
+                                $result_search = mysqli_query($connect, "SELECT * FROM user WHERE city like '%$keyword%' OR district like '%$keyword%' OR ward like '%$keyword%'");
                                 if (mysqli_num_rows($result_search) > 0) {
                                         $rows = array();
                                         while ($r = mysqli_fetch_assoc($result_search)) {
