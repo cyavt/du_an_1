@@ -22,7 +22,7 @@ if (isset($session)) {
 <!-- Peity demo data -->
 <script src="../assets/js/peity-demo.js"></script>
 <!-- API MAPS -->
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBH6z9pLP8iIZWzfXFBV_XUjrAY27Vo2XM&callback=initMap"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=<?=KEYMAPAPI;?>&callback=initMap"></script>
 <script>
     var map
 
@@ -406,16 +406,35 @@ if (isset($session)) {
                         } else {
                             $('#result_search').empty();
                             data.map(function(item) {
-                                $('#result_search').append(`
+                                let id = item['trash_can_id'];
+                                $.ajax({
+                                    url: "data/trash_can",
+                                    type: "POST",
+                                    data: {
+                                        id: id
+                                    },
+                                    dataType: 'json',
+                                    success: function(data) {
+                                        //console.log(data)
+                                        $('#result_search').append(`
             <div class="col-lg-4">
                 <div class="panel panel-success">
                     <div class="panel-heading text-center">Thông tin tìm kiếm</div>
                     <div class="panel-body">
-                        <p>Tên: ${item['name']} </p>
-                        <p>Địa chỉ: ${item['address']}, ${item['ward']}, ${item['district']}, ${item['city']} </p>
+                        <p>Tên: <strong>${item['name']} </strong></p>
+                        <p>SDT: ${item['phone']} </p>
+                        <p>Địa chỉ: ${item['address']}, ${item['ward']}, ${item['district']}, ${item['city']}</p>
+                        <P>Tọa độ thùng rác: <a href="https://www.google.com/maps/dir/${data['location']}">${data['location']}</a></p>
+                        <P>Cân nặng: <strong  style="color:red;">${data['weight']} Kg</strong></p>
+                        <P>Mức độ: <strong  style="color:red;">${data['garbagepercent']} %</strong></p>
                     </div>
                 </div>
             </div>`);
+                                    },
+                                    error: function() {
+                                        console.log('lỗi')
+                                    }
+                                })
                             });
                         }
                     },

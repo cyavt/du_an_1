@@ -173,6 +173,17 @@ if (isset($_GET['key'])) :
                                 require('../pages/404.php');
                         }
                         break;
+                case 'trash_can':
+                        if (isset($_POST['id'])) {
+                                $xem = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM `trash_can` WHERE `id`='{$_POST['id']}'"));
+                                if (isset($xem)) {
+                                        echo (json_encode($xem));
+                                }
+                                mysqli_close($connect);
+                        } else {
+                                require('../pages/404.php');
+                        }
+                        break;
                 case 'getMaps':
                         $result = mysqli_query($connect, "SELECT `location` , `garbagepercent` FROM `trash_can`");
                         if (mysqli_num_rows($result) > 0) {
