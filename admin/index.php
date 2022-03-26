@@ -1,6 +1,7 @@
 <?php
 session_start();
 require '../connect/config.php';
+$title = 'ADMIN';
 if (!isset($_SESSION['super_admin'])) :
     require('./login.php');
 else :
@@ -18,10 +19,10 @@ else :
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>TRANG CHỦ</title>
+        <title><?= $title; ?></title>
         <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
         <link href="../assets/css/animate.css" rel="stylesheet">
-        <link href="http://webapplayers.com/inspinia_admin-v2.9.4/md_skin/css/style.css" rel="stylesheet">
+        <link href="../assets/css/style1.css" rel="stylesheet">
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.4/sweetalert2.css" rel="stylesheet" type="text/css">
         <style>
@@ -59,7 +60,7 @@ else :
                             </ul>
                             <ul class="nav navbar-top-links navbar-right">
                                 <li>
-                                    <a href="../logout.php">
+                                    <a href="../logout.php?destroy=admin">
                                         <i class="fa fa-sign-out"></i> Đăng xuất
                                     </a>
                                 </li>
@@ -162,10 +163,10 @@ else :
                                                     <!-- <h3>TRANG CÀI ĐẶT HỆ THỐNG</h3> -->
                                                     <form action="" method="POST" class="form-horizontal">
                                                         <div class="form-group"><label class="col-sm-2 control-label">Domain</label>
-                                                            <div class="col-sm-10"><input type="text" name="" value="http://<?=$_SERVER['SERVER_NAME'];?>/" class="form-control" required></div>
+                                                            <div class="col-sm-10"><input type="text" name="" value="http://<?= $_SERVER['SERVER_NAME']; ?>/" class="form-control" required></div>
                                                         </div>
                                                         <div class="form-group"><label class="col-sm-2 control-label">Tiêu đề</label>
-                                                            <div class="col-sm-10"><input type="text" name="" value="<?=$_SERVER['HTTP_REFERER'];?>" class="form-control" required></div>
+                                                            <div class="col-sm-10"><input type="text" name="" value="<?= $_SERVER['HTTP_REFERER']; ?>" class="form-control" required></div>
                                                         </div>
                                                         <div class="form-group"><label class="col-sm-2 control-label">Url icon</label>
                                                             <div class="col-sm-10"><input type="text" name="" class="form-control" required></div>

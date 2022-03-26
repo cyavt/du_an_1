@@ -2,17 +2,14 @@
 <html>
 
 <head>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>CYA | 404 Error</title>
-
+    <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/580/580185.png">
+    <title>LỖI | 404 Error</title>
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="../assets/css/animate.css" rel="stylesheet">
     <link href="../assets/css/style.css" rel="stylesheet">
-
 </head>
 
 <body class="gray-bg">

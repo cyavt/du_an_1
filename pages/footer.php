@@ -21,89 +21,523 @@ if (isset($session)) {
 
 <!-- Peity demo data -->
 <script src="../assets/js/peity-demo.js"></script>
-<!-- API MAPS -->
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=<?=KEYMAPAPI;?>&callback=initMap"></script>
-<script>
-    var map
 
-    function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 17,
-            center: new google.maps.LatLng(<?=TOADOTRUNGTAM;?>),
-            mapTypeId: 'roadmap'
-        });
+<?php if (isset($_SESSION['username'])) : ?>
+    <!-- API MAPS -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=<?= KEYMAPAPI; ?>&callback=initMap"></script>
+    <script>
+        var map
 
-        var icons = {
-            status0: {
-                icon: '../assets/css/patterns/0.png'
-            },
-            status50: {
-                icon: '../assets/css/patterns/50.png'
-            },
-            status100: {
-                icon: '../assets/css/patterns/100.png'
-            }
-        };
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 17,
+                center: new google.maps.LatLng(<?= TOADOTRUNGTAM; ?>),
+                mapTypeId: 'roadmap'
+            });
 
-        $.ajax({
-            url: "data/getMaps",
-            dataType: "json",
-            success: function(data) {
-                function addMarker(feature) {
-                    var marker = new google.maps.Marker({
-                        position: feature.position,
-                        icon: icons[feature.type].icon,
-                        map: map
-                    });
+            var icons = {
+                status0: {
+                    icon: '../assets/css/patterns/0.png'
+                },
+                status50: {
+                    icon: '../assets/css/patterns/50.png'
+                },
+                status100: {
+                    icon: '../assets/css/patterns/100.png'
                 }
+            };
 
-                function addInfoWindow(feature) {
-                    var infowindow = new google.maps.InfoWindow({
-                        content: features.content
-                    });
-                }
-
-                var features = data.map((result, number, arr) => {
-                    let str = result['location']
-                    string = str.replace(/\s/g, '')
-                    let substrings = string.split(",")
-                    if (result['garbagepercent'] <= 30) {
-                        var status = 'status0'
-                    } else if (result['garbagepercent'] <= 80) {
-                        var status = 'status50'
-                    } else {
-                        var status = 'status100'
+            $.ajax({
+                url: "data/getMaps",
+                dataType: "json",
+                success: function(data) {
+                    function addMarker(feature) {
+                        var marker = new google.maps.Marker({
+                            position: feature.position,
+                            icon: icons[feature.type].icon,
+                            map: map
+                        });
                     }
 
-                    return {
-                        position: {
-                            lat: parseFloat(substrings[0]),
-                            lng: parseFloat(substrings[1])
-                        },
-                        type: status,
-                        content: 'Lưu trữ ' + result['garbagepercent'] + ' %',
+                    function addInfoWindow(feature) {
+                        var infowindow = new google.maps.InfoWindow({
+                            content: features.content
+                        });
                     }
-                })
-                //console.log(features)
-                for (var i = 0, feature; feature = features[i]; i++) {
-                    addMarker(feature);
-                    addInfoWindow(feature);
+
+                    var features = data.map((result, number, arr) => {
+                        let str = result['location']
+                        string = str.replace(/\s/g, '')
+                        let substrings = string.split(",")
+                        if (result['garbagepercent'] <= 30) {
+                            var status = 'status0'
+                        } else if (result['garbagepercent'] <= 80) {
+                            var status = 'status50'
+                        } else {
+                            var status = 'status100'
+                        }
+
+                        return {
+                            position: {
+                                lat: parseFloat(substrings[0]),
+                                lng: parseFloat(substrings[1])
+                            },
+                            type: status,
+                            content: 'Lưu trữ ' + result['garbagepercent'] + ' %',
+                        }
+                    })
+                    //console.log(features)
+                    for (var i = 0, feature; feature = features[i]; i++) {
+                        addMarker(feature);
+                        addInfoWindow(feature);
+                    }
+                },
+                error: function() {
+                    console.log('lỗi');
                 }
-            },
-            error: function() {
-                console.log('lỗi');
-            }
-        });
-    }
-</script>
+            });
+        }
+    </script>
+<?php endif; ?>
 
 
 <!-- Data -->
 <script>
     <?php if (isset($_SESSION['username'])) : ?>
-        var _0xe2ab=["\x76\x61\x6C","\x23\x69\x70\x75\x74","\x63\x6C\x69\x63\x6B","\x73\x68\x6F\x77","\x23\x63\x6F\x6E\x74\x65\x6E\x74\x31","\x68\x69\x64\x65","\x23\x63\x6F\x6E\x74\x65\x6E\x74\x32","\x6F\x6E","\x23\x62\x74\x6E\x31","\x73\x75\x62\x6D\x69\x74","\x70\x72\x65\x76\x65\x6E\x74\x44\x65\x66\x61\x75\x6C\x74","\x64\x61\x74\x61\x2F\x63\x68\x61\x6E\x67\x65","\x50\x4F\x53\x54","\x64\x69\x73\x61\x62\x6C\x65\x64","\x70\x72\x6F\x70","\u0110\x61\x6E\x67\x20\x78\u1EED\x20\x6C\xFD\x2E\x2E\x2E","\x74\x65\x78\x74","\x23\x6C\x67\x62\x74\x6E","\x54\x68\x61\x79\x20\u0111\u1ED5\x69","\x72\x65\x6C\x6F\x61\x64","\x74\x68\x65\x6E","\x54\x68\xE0\x6E\x68\x20\x63\xF4\x6E\x67\x20\x21","\x54\x68\x61\x79\x20\u0111\u1ED5\x69\x20\u0111\xE3\x20\u0111\u01B0\u1EE3\x63\x20\x74\x68\u1EF1\x63\x20\x68\x69\u1EC7\x6E","\x73\x75\x63\x63\x65\x73\x73","\x4C\u1ED7\x69\x20\x21","\x56\x75\x69\x20\x6C\xF2\x6E\x67\x20\x74\x68\u1EED\x20\x6C\u1EA1\x69\x20\x21","\x65\x72\x72\x6F\x72","\x4C\u1ED7\x69\x20\x6B\x68\xF4\x6E\x67\x20\x78\xE1\x63\x20\u0111\u1ECB\x6E\x68\x20\x21","\u0110\xE3\x20\x78\u1EA3\x79\x20\x72\x61\x20\x6C\u1ED7\x69\x21","\u0110\xE3\x20\x78\u1EA3\x79\x20\x72\x61\x20\x6C\u1ED7\x69\x20\x63\u1EE5\x63\x20\x62\u1ED9\x2C\x20\x76\x75\x69\x20\x6C\xF2\x6E\x67\x20\x74\x68\u1EED\x20\x6C\u1EA1\x69\x21","\u0110\u0103\x6E\x67\x20\x6E\x68\u1EAD\x70","\x61\x6A\x61\x78","\x23\x63\x68\x61\x6E\x67\x65","\x64\x61\x74\x61\x2F\x61\x64\x64\x75\x73\x65\x72","\x6D\x6F\x64\x61\x6C","\x23\x61\x64\x64","\x72\x65\x61\x64\x79","\x54\x68\u1EF1\x63\x20\x68\x69\u1EC7\x6E","\x54\x68\xEA\x6D\x20\x74\x68\xE0\x6E\x68\x20\x63\xF4\x6E\x67","\x6E\x75\x6C\x6C","\x56\x75\x69\x20\x6C\xF2\x6E\x67\x20\u0111\x69\u1EC1\x6E\x20\u0111\u1EE7\x20\x74\x68\xF4\x6E\x67\x20\x74\x69\x6E\x21","\x23\x41\x64\x64","\x64\x61\x74\x61\x2F\x65\x64\x69\x74","\x23\x65\x64\x69\x74","\x53\u1EED\x61\x20\x74\x68\xE0\x6E\x68\x20\x63\xF4\x6E\x67","\x23\x45\x64\x69\x74","\x64\x61\x74\x61\x2F\x61\x64\x64\x74\x72\x61\x73\x68","\x54\x68\xEA\x6D","\x4D\xE3\x20\x74\x6F\x6B\x65\x6E\x20\u0111\xE3\x20\x74\u1ED3\x6E\x20\x74\u1EA1\x69\x20\x21","\x23\x41\x64\x64\x74\x72\x61\x73\x68","\x64\x61\x74\x61\x2F\x78\x6F\x61\x74\x72\x61\x73\x68","\x54\x68\xE0\x6E\x68\x20\x63\xF4\x6E\x67","\u0110\xE3\x20\x78\xF3\x61\x20\x21","\x58\xF3\x61\x20\x6B\x68\xF4\x6E\x67\x20\x74\x68\xE0\x6E\x68\x20\x63\xF4\x6E\x67\x20\x21","\x42\u1EA1\x6E\x20\x63\x68\u1EAF\x63\x20\x63\x68\u1EAF\x6E\x20\u0111\x69\u1EC1\x75\x20\x6E\xE0\x79\x3F","\x77\x61\x72\x6E\x69\x6E\x67","\x23\x33\x30\x38\x35\x64\x36","\x23\x64\x33\x33","\x43\x68\u1EA5\x70\x20\x6E\x68\u1EAD\x6E","\x48\u1EE7\x79","\x64\x61\x74\x61\x2F\x78\x65\x6D","\x6A\x73\x6F\x6E","\x23\x76\x61\x4C","\x2C\x20","\x23\x76\x61\x4C\x36","\x23\x76\x61\x6C","\x23\x76\x61\x4C\x30","\x64\x61\x74\x61\x2F\x78\x6F\x61\x75\x73\x65\x72","\x23\x78\x6F\x61\x75\x73\x65\x72","\x76\x69\x65\x74\x6E\x61\x6D\x2E\x6A\x73\x6F\x6E","\x65\x6D\x70\x74\x79","\x23\x64\x69\x73\x74\x72\x69\x63\x74","\x3C\x6F\x70\x74\x69\x6F\x6E\x20\x76\x61\x6C\x75\x65\x3D\x22\x22\x20\x73\x65\x6C\x65\x63\x74\x65\x64\x3E\x43\x68\u1ECD\x6E\x20\x71\x75\u1EAD\x6E\x20\x68\x75\x79\u1EC7\x6E\x3C\x2F\x6F\x70\x74\x69\x6F\x6E\x3E","\x61\x70\x70\x65\x6E\x64","\x6C\x65\x6E\x67\x74\x68","\x64\x69\x73\x74\x72\x69\x63\x74\x73","\x3C\x6F\x70\x74\x69\x6F\x6E\x3E","\x6E\x61\x6D\x65","\x23\x77\x61\x72\x64","\x3C\x6F\x70\x74\x69\x6F\x6E\x20\x76\x61\x6C\x75\x65\x3D\x22\x22\x20\x73\x65\x6C\x65\x63\x74\x65\x64\x3E\x43\x68\u1ECD\x6E\x20\x70\x68\u01B0\u1EDD\x6E\x67\x20\x78\xE3\x3C\x2F\x6F\x70\x74\x69\x6F\x6E\x3E","\x77\x61\x72\x64\x73","\x63\x68\x61\x6E\x67\x65","\x23\x63\x69\x74\x79","\x67\x65\x74\x4A\x53\x4F\x4E","\x23\x77\x61\x72\x64\x20\x3A\x73\x65\x6C\x65\x63\x74\x65\x64","\x43\x68\u1ECD\x6E\x20\x70\x68\u01B0\u1EDD\x6E\x67\x20\x78\xE3","\x23\x64\x69\x73\x74\x72\x69\x63\x74\x20\x3A\x73\x65\x6C\x65\x63\x74\x65\x64","\x43\x68\u1ECD\x6E\x20\x71\x75\u1EAD\x6E\x20\x68\x75\x79\u1EC7\x6E","\x23\x63\x69\x74\x79\x20\x3A\x73\x65\x6C\x65\x63\x74\x65\x64","\x43\x68\u1ECD\x6E\x20\x74\u1EC9\x6E\x68\x20\x74\x68\xE0\x6E\x68","\x64\x61\x74\x61\x2F\x73\x65\x61\x72\x63\x68","\x72\x65\x73\x75\x6C\x74","\x6E\x6F\x20\x64\x61\x74\x61\x20\x66\x6F\x75\x6E\x64","\x23\x72\x65\x73\x75\x6C\x74\x5F\x73\x65\x61\x72\x63\x68","\x3C\x68\x33\x20\x63\x6C\x61\x73\x73\x3D\x22\x74\x65\x78\x74\x2D\x6D\x75\x74\x65\x64\x20\x74\x65\x78\x74\x2D\x63\x65\x6E\x74\x65\x72\x22\x3E\x4B\x68\xF4\x6E\x67\x20\x74\xEC\x6D\x20\x74\x68\u1EA5\x79\x20\x6B\u1EBF\x74\x20\x71\x75\u1EA3\x3C\x2F\x68\x33\x3E","\x74\x72\x61\x73\x68\x5F\x63\x61\x6E\x5F\x69\x64","\x64\x61\x74\x61\x2F\x74\x72\x61\x73\x68\x5F\x63\x61\x6E","\x0D\x0A\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x3C\x64\x69\x76\x20\x63\x6C\x61\x73\x73\x3D\x22\x63\x6F\x6C\x2D\x6C\x67\x2D\x34\x22\x3E\x0D\x0A\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x3C\x64\x69\x76\x20\x63\x6C\x61\x73\x73\x3D\x22\x70\x61\x6E\x65\x6C\x20\x70\x61\x6E\x65\x6C\x2D\x73\x75\x63\x63\x65\x73\x73\x22\x3E\x0D\x0A\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x3C\x64\x69\x76\x20\x63\x6C\x61\x73\x73\x3D\x22\x70\x61\x6E\x65\x6C\x2D\x68\x65\x61\x64\x69\x6E\x67\x20\x74\x65\x78\x74\x2D\x63\x65\x6E\x74\x65\x72\x22\x3E\x54\x68\xF4\x6E\x67\x20\x74\x69\x6E\x20\x74\xEC\x6D\x20\x6B\x69\u1EBF\x6D\x3C\x2F\x64\x69\x76\x3E\x0D\x0A\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x3C\x64\x69\x76\x20\x63\x6C\x61\x73\x73\x3D\x22\x70\x61\x6E\x65\x6C\x2D\x62\x6F\x64\x79\x22\x3E\x0D\x0A\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x3C\x70\x3E\x54\xEA\x6E\x3A\x20\x3C\x73\x74\x72\x6F\x6E\x67\x3E","\x20\x3C\x2F\x73\x74\x72\x6F\x6E\x67\x3E\x3C\x2F\x70\x3E\x0D\x0A\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x3C\x70\x3E\x53\x44\x54\x3A\x20","\x70\x68\x6F\x6E\x65","\x20\x3C\x2F\x70\x3E\x0D\x0A\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x3C\x70\x3E\u0110\u1ECB\x61\x20\x63\x68\u1EC9\x3A\x20","\x61\x64\x64\x72\x65\x73\x73","\x77\x61\x72\x64","\x64\x69\x73\x74\x72\x69\x63\x74","\x63\x69\x74\x79","\x3C\x2F\x70\x3E\x0D\x0A\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x3C\x50\x3E\x54\u1ECD\x61\x20\u0111\u1ED9\x20\x74\x68\xF9\x6E\x67\x20\x72\xE1\x63\x3A\x20\x3C\x61\x20\x68\x72\x65\x66\x3D\x22\x68\x74\x74\x70\x73\x3A\x2F\x2F\x77\x77\x77\x2E\x67\x6F\x6F\x67\x6C\x65\x2E\x63\x6F\x6D\x2F\x6D\x61\x70\x73\x2F\x64\x69\x72\x2F","\x6C\x6F\x63\x61\x74\x69\x6F\x6E","\x22\x3E","\x3C\x2F\x61\x3E\x3C\x2F\x70\x3E\x0D\x0A\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x3C\x50\x3E\x43\xE2\x6E\x20\x6E\u1EB7\x6E\x67\x3A\x20\x3C\x73\x74\x72\x6F\x6E\x67\x20\x20\x73\x74\x79\x6C\x65\x3D\x22\x63\x6F\x6C\x6F\x72\x3A\x72\x65\x64\x3B\x22\x3E","\x77\x65\x69\x67\x68\x74","\x20\x4B\x67\x3C\x2F\x73\x74\x72\x6F\x6E\x67\x3E\x3C\x2F\x70\x3E\x0D\x0A\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x3C\x50\x3E\x4D\u1EE9\x63\x20\u0111\u1ED9\x3A\x20\x3C\x73\x74\x72\x6F\x6E\x67\x20\x20\x73\x74\x79\x6C\x65\x3D\x22\x63\x6F\x6C\x6F\x72\x3A\x72\x65\x64\x3B\x22\x3E","\x67\x61\x72\x62\x61\x67\x65\x70\x65\x72\x63\x65\x6E\x74","\x20\x25\x3C\x2F\x73\x74\x72\x6F\x6E\x67\x3E\x3C\x2F\x70\x3E\x0D\x0A\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x3C\x2F\x64\x69\x76\x3E\x0D\x0A\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x3C\x2F\x64\x69\x76\x3E\x0D\x0A\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x3C\x2F\x64\x69\x76\x3E","\x6C\u1ED7\x69","\x6C\x6F\x67","\x6D\x61\x70","\x4C\u1ED7\x69","\x23\x62\x75\x74\x74\x6F\x6E\x5F\x73\x65\x61\x72\x63\x68","\x63\x6C\x61\x73\x73\x4E\x61\x6D\x65","\x62\x75\x74\x74\x6F\x6E","\x64\x6F\x6D","\x64\x65\x66\x61\x75\x6C\x74\x73","\x42\x75\x74\x74\x6F\x6E\x73","\x64\x61\x74\x61\x54\x61\x62\x6C\x65","\x66\x6E","\x62\x74\x6E\x20\x62\x74\x6E\x2D\x77\x68\x69\x74\x65\x20\x62\x74\x6E\x2D\x73\x6D","\x3C\x22\x68\x74\x6D\x6C\x35\x62\x75\x74\x74\x6F\x6E\x73\x22\x42\x3E\x6C\x54\x66\x67\x69\x74\x70","\x65\x78\x63\x65\x6C","\x44\x61\x6E\x68\x20\x73\xE1\x63\x68\x20\x71\x75\u1EA3\x6E\x20\x6C\xFD","\x70\x64\x66","\x70\x72\x69\x6E\x74","\x77\x68\x69\x74\x65\x2D\x62\x67","\x61\x64\x64\x43\x6C\x61\x73\x73","\x62\x6F\x64\x79","\x64\x6F\x63\x75\x6D\x65\x6E\x74","\x66\x6F\x6E\x74\x2D\x73\x69\x7A\x65","\x31\x30\x70\x78","\x63\x73\x73","\x69\x6E\x68\x65\x72\x69\x74","\x63\x6F\x6D\x70\x61\x63\x74","\x74\x61\x62\x6C\x65","\x66\x69\x6E\x64","\x41\x6C\x6C","\x54\xEC\x6D\x20\x4B\x69\u1EBF\x6D","\x4B\x68\xF4\x6E\x67\x20\x74\xEC\x6D\x20\x74\x68\u1EA5\x79\x20\x6B\u1EBF\x74\x20\x71\x75\u1EA3","\x56\u1EC1\x20\u0110\u1EA7\x75","\x56\u1EC1\x20\x43\x75\u1ED1\x69","\x54\x69\u1EBF\x6E","\x4C\xF9\x69","\x48\x69\u1EC3\x6E\x20\x74\x68\u1ECB\x20\x5F\x53\x54\x41\x52\x54\x5F\x20\u0111\u1EBF\x6E\x20\x5F\x45\x4E\x44\x5F\x20\x63\u1EE7\x61\x20\x5F\x54\x4F\x54\x41\x4C\x5F\x20\x6D\u1EE5\x63","\x48\x69\u1EC3\x6E\x20\x74\x68\u1ECB\x20\x30\x20\u0111\u1EBF\x6E\x20\x30\x20\x63\u1EE7\x61\x20\x30\x20\x6D\u1EE5\x63","\x48\x69\u1EC3\x6E\x20\x74\x68\u1ECB\x20\x5F\x4D\x45\x4E\x55\x5F\x20\x6D\u1EE5\x63","\x28\u0110\u01B0\u1EE3\x63\x20\x6C\u1ECD\x63\x20\x74\u1EEB\x20\x5F\x4D\x41\x58\x5F\x20\x4D\u1EE5\x63\x29","\u0110\x61\x6E\x67\x20\x74\u1EA3\x69\x2E\x2E\x2E","\x4B\x68\xF4\x6E\x67\x20\x63\xF3\x20\x67\xEC\x20\u0111\u1EC3\x20\x68\x69\u1EC3\x6E\x20\x74\x68\u1ECB"];function add(_0xbbfdx2){$(_0xe2ab[1])[_0xe2ab[0]](_0xbbfdx2)}$(_0xe2ab[8])[_0xe2ab[7]](_0xe2ab[2],(function(_0xbbfdx3){$(_0xe2ab[4])[_0xe2ab[3]]();$(_0xe2ab[6])[_0xe2ab[5]]()}));$(_0xe2ab[32])[_0xe2ab[7]](_0xe2ab[9],(function(_0xbbfdx3){_0xbbfdx3[_0xe2ab[10]]();$[_0xe2ab[31]]({url:_0xe2ab[11],type:_0xe2ab[12],data: new FormData(this),contentType:false,cache:false,processData:false,beforeSend:function(){$(_0xe2ab[17])[_0xe2ab[16]](_0xe2ab[15])[_0xe2ab[14]](_0xe2ab[13],true)},success:function(_0xbbfdx4){$(_0xe2ab[17])[_0xe2ab[16]](_0xe2ab[18])[_0xe2ab[14]](_0xe2ab[13],false);if(_0xbbfdx4== true){swal(_0xe2ab[21],_0xe2ab[22],_0xe2ab[23])[_0xe2ab[20]](function(){location[_0xe2ab[19]]()})}else {if(_0xbbfdx4== false){swal(_0xe2ab[24],_0xe2ab[25],_0xe2ab[26])}else {swal(_0xe2ab[24],_0xe2ab[27],_0xe2ab[26])}}},error:function(){swal(_0xe2ab[28],_0xe2ab[29],_0xe2ab[26]);$(_0xe2ab[17])[_0xe2ab[16]](_0xe2ab[30])[_0xe2ab[14]](_0xe2ab[13],false)}})}));$(_0xe2ab[41])[_0xe2ab[7]](_0xe2ab[9],(function(_0xbbfdx3){_0xbbfdx3[_0xe2ab[10]]();$[_0xe2ab[31]]({url:_0xe2ab[33],type:_0xe2ab[12],data: new FormData(this),contentType:false,cache:false,processData:false,beforeSend:function(){$(_0xe2ab[17])[_0xe2ab[16]](_0xe2ab[15])[_0xe2ab[14]](_0xe2ab[13],true)[_0xe2ab[36]](function(){$(_0xe2ab[35])[_0xe2ab[34]](_0xe2ab[5])})},success:function(_0xbbfdx4){$(_0xe2ab[17])[_0xe2ab[16]](_0xe2ab[37])[_0xe2ab[14]](_0xe2ab[13],false);if(_0xbbfdx4== true){swal(_0xe2ab[21],_0xe2ab[38],_0xe2ab[23])[_0xe2ab[20]](function(){location[_0xe2ab[19]]()})}else {if(_0xbbfdx4== _0xe2ab[39]){swal(_0xe2ab[24],_0xe2ab[40],_0xe2ab[26])}else {swal(_0xe2ab[24],_0xe2ab[25],_0xe2ab[26])}}},error:function(){swal(_0xe2ab[28],_0xe2ab[29],_0xe2ab[26]);$(_0xe2ab[17])[_0xe2ab[16]](_0xe2ab[37])[_0xe2ab[14]](_0xe2ab[13],false)}})}));$(_0xe2ab[45])[_0xe2ab[7]](_0xe2ab[9],(function(_0xbbfdx3){_0xbbfdx3[_0xe2ab[10]]();$[_0xe2ab[31]]({url:_0xe2ab[42],type:_0xe2ab[12],data: new FormData(this),contentType:false,cache:false,processData:false,beforeSend:function(){$(_0xe2ab[17])[_0xe2ab[16]](_0xe2ab[15])[_0xe2ab[14]](_0xe2ab[13],true)[_0xe2ab[36]](function(){$(_0xe2ab[43])[_0xe2ab[34]](_0xe2ab[5])})},success:function(_0xbbfdx4){$(_0xe2ab[17])[_0xe2ab[16]](_0xe2ab[37])[_0xe2ab[14]](_0xe2ab[13],false);if(_0xbbfdx4== true){swal(_0xe2ab[21],_0xe2ab[44],_0xe2ab[23])[_0xe2ab[20]](function(){location[_0xe2ab[19]]()})}else {if(_0xbbfdx4== _0xe2ab[39]){swal(_0xe2ab[24],_0xe2ab[40],_0xe2ab[26])}else {swal(_0xe2ab[24],_0xe2ab[25],_0xe2ab[26])}}},error:function(){swal(_0xe2ab[28],_0xe2ab[29],_0xe2ab[26]);$(_0xe2ab[17])[_0xe2ab[16]](_0xe2ab[37])[_0xe2ab[14]](_0xe2ab[13],false)}})}));$(_0xe2ab[49])[_0xe2ab[7]](_0xe2ab[9],(function(_0xbbfdx3){_0xbbfdx3[_0xe2ab[10]]();$[_0xe2ab[31]]({url:_0xe2ab[46],type:_0xe2ab[12],data: new FormData(this),contentType:false,cache:false,processData:false,beforeSend:function(){$(_0xe2ab[17])[_0xe2ab[16]](_0xe2ab[15])[_0xe2ab[14]](_0xe2ab[13],true)},success:function(_0xbbfdx4){$(_0xe2ab[17])[_0xe2ab[16]](_0xe2ab[47])[_0xe2ab[14]](_0xe2ab[13],false);if(_0xbbfdx4== true){swal(_0xe2ab[21],_0xe2ab[38],_0xe2ab[23])[_0xe2ab[20]](function(){location[_0xe2ab[19]]()})}else {if(_0xbbfdx4== _0xe2ab[39]){swal(_0xe2ab[24],_0xe2ab[40],_0xe2ab[26])}else {swal(_0xe2ab[24],_0xe2ab[48],_0xe2ab[26])}}},error:function(){swal(_0xe2ab[28],_0xe2ab[29],_0xe2ab[26]);$(_0xe2ab[17])[_0xe2ab[16]](_0xe2ab[30])[_0xe2ab[14]](_0xe2ab[13],false)}})}));function xoatrash(_0xbbfdx2){swal({title:_0xe2ab[54],type:_0xe2ab[55],showCancelButton:true,confirmButtonColor:_0xe2ab[56],cancelButtonColor:_0xe2ab[57],confirmButtonText:_0xe2ab[58],cancelButtonText:_0xe2ab[59]})[_0xe2ab[20]](function(){$[_0xe2ab[31]]({url:_0xe2ab[50],type:_0xe2ab[12],data:{id:_0xbbfdx2},success:function(_0xbbfdx4){if(_0xbbfdx4== true){swal(_0xe2ab[51],_0xe2ab[52],_0xe2ab[23])[_0xe2ab[20]](function(){location[_0xe2ab[19]]()})}else {swal(_0xe2ab[24],_0xe2ab[53],_0xe2ab[26])}},error:function(){swal(_0xe2ab[28],_0xe2ab[29],_0xe2ab[26])}})})}function xem(_0xbbfdx2){$(_0xe2ab[4])[_0xe2ab[5]]();$(_0xe2ab[6])[_0xe2ab[3]]();$[_0xe2ab[31]]({url:_0xe2ab[60],type:_0xe2ab[12],data:{id:_0xbbfdx2},dataType:_0xe2ab[61],success:function(_0xbbfdx4){for(let _0xbbfdx7=0;_0xbbfdx7< 6;_0xbbfdx7++){var _0xbbfdx8=_0xe2ab[62]+ _0xbbfdx7;$(_0xbbfdx8)[_0xe2ab[0]](_0xbbfdx4[_0xbbfdx7])};$(_0xe2ab[64])[_0xe2ab[0]](_0xbbfdx4[6]+ _0xe2ab[63]+ _0xbbfdx4[7]+ _0xe2ab[63]+ _0xbbfdx4[8]+ _0xe2ab[63]+ _0xbbfdx4[9]);for(let _0xbbfdx7=0;_0xbbfdx7< 10;_0xbbfdx7++){var _0xbbfdx8=_0xe2ab[65]+ _0xbbfdx7;$(_0xbbfdx8)[_0xe2ab[0]](_0xbbfdx4[_0xbbfdx7])}},error:function(){swal(_0xe2ab[28],_0xe2ab[29],_0xe2ab[26])}})}$(_0xe2ab[68])[_0xe2ab[7]](_0xe2ab[2],function(){let _0xbbfdx2=$(_0xe2ab[66])[_0xe2ab[0]]();swal({title:_0xe2ab[54],type:_0xe2ab[55],showCancelButton:true,confirmButtonColor:_0xe2ab[56],cancelButtonColor:_0xe2ab[57],confirmButtonText:_0xe2ab[58],cancelButtonText:_0xe2ab[59]})[_0xe2ab[20]](function(){$[_0xe2ab[31]]({url:_0xe2ab[67],type:_0xe2ab[12],data:{id:_0xbbfdx2},dataType:_0xe2ab[61],success:function(_0xbbfdx4){if(_0xbbfdx4== true){swal(_0xe2ab[51],_0xe2ab[52],_0xe2ab[23])[_0xe2ab[20]](function(){location[_0xe2ab[19]]()})}else {swal(_0xe2ab[24],_0xe2ab[53],_0xe2ab[26])}},error:function(){swal(_0xe2ab[28],_0xe2ab[29],_0xe2ab[26])}})})});$(function(){$[_0xe2ab[83]](_0xe2ab[69],function(_0xbbfdx4){$(_0xe2ab[82])[_0xe2ab[81]](function(){var _0xbbfdx9=$(this)[_0xe2ab[0]]();$(_0xe2ab[71])[_0xe2ab[70]]();$(_0xe2ab[71])[_0xe2ab[73]](`${_0xe2ab[72]}`);for(i= 0;i< _0xbbfdx4[_0xbbfdx9][_0xe2ab[75]][_0xe2ab[74]];i++){$(_0xe2ab[71])[_0xe2ab[73]]($(_0xe2ab[76],{value:i,text:_0xbbfdx4[_0xbbfdx9][_0xe2ab[75]][i][_0xe2ab[77]]}))};$(_0xe2ab[71])[_0xe2ab[81]](function(){var _0xbbfdxa=$(this)[_0xe2ab[0]]();$(_0xe2ab[78])[_0xe2ab[70]]();$(_0xe2ab[78])[_0xe2ab[73]](`${_0xe2ab[79]}`);for(j= 0;j< _0xbbfdx4[_0xbbfdx9][_0xe2ab[75]][_0xbbfdxa][_0xe2ab[80]][_0xe2ab[74]];j++){$(_0xe2ab[78])[_0xe2ab[73]]($(_0xe2ab[76],{value:j,text:_0xbbfdx4[_0xbbfdx9][_0xe2ab[75]][_0xbbfdxa][_0xe2ab[80]][j][_0xe2ab[77]]}))}})})});$(_0xe2ab[117])[_0xe2ab[7]](_0xe2ab[2],function(){var _0xbbfdxb=$(_0xe2ab[84])[_0xe2ab[16]]();if(_0xbbfdxb!= _0xe2ab[85]){_0xbbfdxb= $(_0xe2ab[84])[_0xe2ab[16]]()}else {_0xbbfdxb= $(_0xe2ab[86])[_0xe2ab[16]]();if(_0xbbfdxb!= _0xe2ab[87]){_0xbbfdxb= $(_0xe2ab[86])[_0xe2ab[16]]()}else {_0xbbfdxb= $(_0xe2ab[88])[_0xe2ab[16]]();if(_0xbbfdxb!= _0xe2ab[89]){_0xbbfdxb= $(_0xe2ab[88])[_0xe2ab[16]]()}else {_0xbbfdxb= 0}}};$[_0xe2ab[31]]({url:_0xe2ab[90],type:_0xe2ab[12],data:{keyword:_0xbbfdxb},dataType:_0xe2ab[61],success:function(_0xbbfdx4){if(_0xbbfdx4[_0xe2ab[91]]== _0xe2ab[92]){$(_0xe2ab[93])[_0xe2ab[70]]();$(_0xe2ab[93])[_0xe2ab[73]](`${_0xe2ab[94]}`)}else {$(_0xe2ab[93])[_0xe2ab[70]]();_0xbbfdx4[_0xe2ab[115]](function(_0xbbfdxc){let _0xbbfdx2=_0xbbfdxc[_0xe2ab[95]];$[_0xe2ab[31]]({url:_0xe2ab[96],type:_0xe2ab[12],data:{id:_0xbbfdx2},dataType:_0xe2ab[61],success:function(_0xbbfdx4){$(_0xe2ab[93])[_0xe2ab[73]](`${_0xe2ab[97]}${_0xbbfdxc[_0xe2ab[77]]}${_0xe2ab[98]}${_0xbbfdxc[_0xe2ab[99]]}${_0xe2ab[100]}${_0xbbfdxc[_0xe2ab[101]]}${_0xe2ab[63]}${_0xbbfdxc[_0xe2ab[102]]}${_0xe2ab[63]}${_0xbbfdxc[_0xe2ab[103]]}${_0xe2ab[63]}${_0xbbfdxc[_0xe2ab[104]]}${_0xe2ab[105]}${_0xbbfdx4[_0xe2ab[106]]}${_0xe2ab[107]}${_0xbbfdx4[_0xe2ab[106]]}${_0xe2ab[108]}${_0xbbfdx4[_0xe2ab[109]]}${_0xe2ab[110]}${_0xbbfdx4[_0xe2ab[111]]}${_0xe2ab[112]}`)},error:function(){console[_0xe2ab[114]](_0xe2ab[113])}})})}},error:function(){console[_0xe2ab[114]](_0xe2ab[116])}})})});$[_0xe2ab[124]][_0xe2ab[123]][_0xe2ab[122]][_0xe2ab[121]][_0xe2ab[120]][_0xe2ab[119]][_0xe2ab[118]]= _0xe2ab[125];$(document)[_0xe2ab[36]](function(){$(_0xe2ab[140]).DataTable({pageLength:10,responsive:true,dom:_0xe2ab[126],buttons:[{extend:_0xe2ab[127],title:_0xe2ab[128]},{extend:_0xe2ab[129],title:_0xe2ab[128]},{extend:_0xe2ab[130],customize:function(_0xbbfdxd){$(_0xbbfdxd[_0xe2ab[134]][_0xe2ab[133]])[_0xe2ab[132]](_0xe2ab[131]);$(_0xbbfdxd[_0xe2ab[134]][_0xe2ab[133]])[_0xe2ab[137]](_0xe2ab[135],_0xe2ab[136]);$(_0xbbfdxd[_0xe2ab[134]][_0xe2ab[133]])[_0xe2ab[141]](_0xe2ab[140])[_0xe2ab[132]](_0xe2ab[139])[_0xe2ab[137]](_0xe2ab[135],_0xe2ab[138])}}],"\x6C\x65\x6E\x67\x74\x68\x4D\x65\x6E\x75":[[5,10,25,50,-1],[5,10,25,50,_0xe2ab[142]]],"\x6C\x61\x6E\x67\x75\x61\x67\x65":{"\x73\x65\x61\x72\x63\x68":_0xe2ab[143],"\x7A\x65\x72\x6F\x52\x65\x63\x6F\x72\x64\x73":_0xe2ab[144],"\x70\x61\x67\x69\x6E\x61\x74\x65":{"\x66\x69\x72\x73\x74":_0xe2ab[145],"\x6C\x61\x73\x74":_0xe2ab[146],"\x6E\x65\x78\x74":_0xe2ab[147],"\x70\x72\x65\x76\x69\x6F\x75\x73":_0xe2ab[148]},"\x69\x6E\x66\x6F":_0xe2ab[149],"\x69\x6E\x66\x6F\x45\x6D\x70\x74\x79":_0xe2ab[150],"\x6C\x65\x6E\x67\x74\x68\x4D\x65\x6E\x75":_0xe2ab[151],"\x69\x6E\x66\x6F\x46\x69\x6C\x74\x65\x72\x65\x64":_0xe2ab[152],"\x6C\x6F\x61\x64\x69\x6E\x67\x52\x65\x63\x6F\x72\x64\x73":_0xe2ab[153],"\x65\x6D\x70\x74\x79\x54\x61\x62\x6C\x65":_0xe2ab[154]}})})
+
+        /* Input dữ liệu id user */
+        function add(id) {
+            $('#iput').val(id);
+        }
+        /* BACK */
+        $("#btn1").on('click', (function(e) {
+            $("#content1").show()
+            $("#content2").hide()
+        }));
+
+        /* Thay đổi thông tin nhân viên */
+        $("#change").on('submit', (function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: "data/change",
+                type: "POST",
+                data: new FormData(this),
+                contentType: false,
+                cache: false,
+                processData: false,
+                beforeSend: function() {
+                    $('#lgbtn').text('Đang xử lý...').prop('disabled', true)
+                },
+                success: function(data) {
+                    //console.log(data)
+                    $('#lgbtn').text('Thay đổi').prop('disabled', false)
+                    if (data == true)
+                        swal("Thành công !", "Thay đổi đã được thực hiện", "success").then(function() {
+                            location.reload();
+                        })
+                    else if (data == false)
+                        swal("Lỗi !", "Vui lòng thử lại !", "error")
+                    else
+                        swal("Lỗi !", "Lỗi không xác định !", "error")
+                },
+                error: function() {
+                    swal("Đã xảy ra lỗi!", "Đã xảy ra lỗi cục bộ, vui lòng thử lại!", "error")
+                    $('#lgbtn').text('Đăng nhập').prop('disabled', false)
+                }
+            });
+        }));
+
+        /* THÊM USER */
+        $("#Add").on('submit', (function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: "data/adduser",
+                type: "POST",
+                data: new FormData(this),
+                contentType: false,
+                cache: false,
+                processData: false,
+                beforeSend: function() {
+                    $('#lgbtn').text('Đang xử lý...').prop('disabled', true).ready(function() {
+                        $("#add").modal('hide');
+                    });
+                },
+                success: function(data) {
+                    //console.log(data)
+                    $('#lgbtn').text('Thực hiện').prop('disabled', false)
+                    if (data == true)
+                        swal("Thành công !", "Thêm thành công", "success").then(function() {
+                            location.reload();
+                        })
+                    else if (data == 'null')
+                        swal("Lỗi !", "Vui lòng điền đủ thông tin!", "error")
+                    else
+                        swal("Lỗi !", "Vui lòng thử lại !", "error")
+                },
+                error: function() {
+                    swal("Đã xảy ra lỗi!", "Đã xảy ra lỗi cục bộ, vui lòng thử lại!", "error")
+                    $('#lgbtn').text('Thực hiện').prop('disabled', false)
+                }
+            });
+        }));
+
+        /* CHỈNH SỬA USER */
+        $("#Edit").on('submit', (function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: "data/edit",
+                type: "POST",
+                data: new FormData(this),
+                contentType: false,
+                cache: false,
+                processData: false,
+                beforeSend: function() {
+                    $('#lgbtn').text('Đang xử lý...').prop('disabled', true).ready(function() {
+                        $("#edit").modal('hide');
+                    });
+                },
+                success: function(data) {
+                    //console.log(data)
+                    $('#lgbtn').text('Thực hiện').prop('disabled', false)
+                    if (data == true)
+                        swal("Thành công !", "Sửa thành công", "success").then(function() {
+                            location.reload();
+                        })
+                    else if (data == 'null')
+                        swal("Lỗi !", "Vui lòng điền đủ thông tin!", "error")
+                    else
+                        swal("Lỗi !", "Vui lòng thử lại !", "error")
+                },
+                error: function() {
+                    swal("Đã xảy ra lỗi!", "Đã xảy ra lỗi cục bộ, vui lòng thử lại!", "error")
+                    $('#lgbtn').text('Thực hiện').prop('disabled', false)
+                }
+            });
+        }));
+
+        /* THÊM THÙNG RÁC MỚI */
+        $("#Addtrash").on('submit', (function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: "data/addtrash",
+                type: "POST",
+                data: new FormData(this),
+                contentType: false,
+                cache: false,
+                processData: false,
+                beforeSend: function() {
+                    $('#lgbtn').text('Đang xử lý...').prop('disabled', true)
+                },
+                success: function(data) {
+                    $('#lgbtn').text('Thêm').prop('disabled', false)
+                    if (data == true)
+                        swal("Thành công !", "Thêm thành công", "success").then(function() {
+                            location.reload();
+                        })
+                    else if (data == 'null')
+                        swal("Lỗi !", "Vui lòng điền đủ thông tin!", "error")
+                    else
+                        swal("Lỗi !", "Mã token đã tồn tại !", "error")
+                },
+                error: function() {
+                    swal("Đã xảy ra lỗi!", "Đã xảy ra lỗi cục bộ, vui lòng thử lại!", "error")
+                    $('#lgbtn').text('Đăng nhập').prop('disabled', false)
+                }
+            });
+        }));
+
+        /* XÓA THÙNG RÁC */
+        function xoatrash(id) {
+            swal({
+                title: 'Bạn chắc chắn điều này?',
+                //text: alert,
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Chấp nhận',
+                cancelButtonText: 'Hủy'
+            }).then(function() {
+                $.ajax({
+                    url: "data/xoatrash",
+                    type: "POST",
+                    data: {
+                        id: id
+                    },
+                    success: function(data) {
+                        //console.log(data)
+                        if (data == true)
+                            swal("Thành công", "Đã xóa !", "success").then(function() {
+                                location.reload();
+                            })
+                        else
+                            swal("Lỗi !", "Xóa không thành công !", "error")
+
+                    },
+                    error: function() {
+                        swal("Đã xảy ra lỗi!", "Đã xảy ra lỗi cục bộ, vui lòng thử lại!", "error")
+                    }
+                });
+            });
+        };
+
+        /* XEM CHI TIẾT USER */
+        function xem(id) {
+            $("#content1").hide()
+            $("#content2").show()
+            $.ajax({
+                url: "data/xem",
+                type: "POST",
+                data: {
+                    id: id
+                },
+                dataType: 'json',
+                success: function(data) {
+                    for (let i = 0; i < 6; i++) {
+                        var a = '#vaL' + i;
+                        $(a).val(data[i])
+                    }
+                    $('#vaL6').val(data[6] + ', ' + data[7] + ', ' + data[8] + ', ' + data[9])
+                    for (let i = 0; i < 10; i++) {
+                        var a = '#val' + i;
+                        $(a).val(data[i])
+                    }
+                },
+                error: function() {
+                    swal("Đã xảy ra lỗi!", "Đã xảy ra lỗi cục bộ, vui lòng thử lại!", "error")
+                }
+            });
+        };
+
+        /* XÓA USER */
+        $('#xoauser').on('click', function() {
+            let id = $('#vaL0').val();
+            swal({
+                title: 'Bạn chắc chắn điều này?',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Chấp nhận',
+                cancelButtonText: 'Hủy'
+            }).then(function() {
+                $.ajax({
+                    url: "data/xoauser",
+                    type: "POST",
+                    data: {
+                        id: id
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data == true)
+                            swal("Thành công", "Đã xóa !", "success").then(function() {
+                                location.reload();
+                            })
+                        else
+                            swal("Lỗi !", "Xóa không thành công !", "error")
+                    },
+                    error: function() {
+                        swal("Đã xảy ra lỗi!", "Đã xảy ra lỗi cục bộ, vui lòng thử lại!", "error")
+                    }
+                });
+            });
+        });
+
+
+        /* Lọc Tìm kiếm */
+        $(function() {
+            $.getJSON("../assets/vietnam.json", function(data) {
+                //console.log(data)
+                $('#city').change(function() {
+                    var valCity = $(this).val();
+                    $('#district').empty();
+                    $('#district').append(`<option value="" selected>Chọn quận huyện</option>`)
+                    for (i = 0; i < data[valCity]['districts'].length; i++) {
+                        $('#district').append($('<option>', {
+                            value: i,
+                            text: data[valCity]['districts'][i]['name']
+                        }));
+                    };
+
+                    $('#district').change(function() {
+                        var valDistrict = $(this).val();
+                        $('#ward').empty();
+                        $('#ward').append(`<option value="" selected>Chọn phường xã</option>`)
+                        for (j = 0; j < data[valCity]['districts'][valDistrict]['wards'].length; j++) {
+                            $('#ward').append($('<option>', {
+                                value: j,
+                                text: data[valCity]['districts'][valDistrict]['wards'][j]['name']
+                            }));
+                        };
+                    });
+                });
+            });
+
+            $('#button_search').on('click', function() {
+                var keyword = $('#ward :selected').text();
+                if (keyword != 'Chọn phường xã') {
+                    keyword = $('#ward :selected').text();
+                } else {
+                    keyword = $('#district :selected').text();
+                    if (keyword != 'Chọn quận huyện') {
+                        keyword = $('#district :selected').text();
+                    } else {
+                        keyword = $('#city :selected').text();
+                        if (keyword != 'Chọn tỉnh thành') {
+                            keyword = $('#city :selected').text();
+                        } else {
+                            keyword = 0;
+                        }
+                    }
+                }
+                //console.log(keyword)
+                $.ajax({
+                    url: "data/search",
+                    type: "POST",
+                    data: {
+                        keyword: keyword
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data['result'] == 'no data found') {
+                            $('#result_search').empty();
+                            $('#result_search').append(`<h3 class="text-muted text-center">Không tìm thấy kết quả</h3>`)
+                        } else {
+                            $('#result_search').empty();
+                            data.map(function(item) {
+                                let id = item['trash_can_id'];
+                                $.ajax({
+                                    url: "data/trash_can",
+                                    type: "POST",
+                                    data: {
+                                        id: id
+                                    },
+                                    dataType: 'json',
+                                    success: function(data) {
+                                        //console.log(data)
+                                        $('#result_search').append(`
+            <div class="col-lg-4">
+                <div class="panel panel-success">
+                    <div class="panel-heading text-center">Thông tin tìm kiếm</div>
+                    <div class="panel-body">
+                        <p>Tên: <strong>${item['name']} </strong></p>
+                        <p>SDT: ${item['phone']} </p>
+                        <p>Địa chỉ: ${item['address']}, ${item['ward']}, ${item['district']}, ${item['city']}</p>
+                        <P>Tọa độ thùng rác: <a href="https://www.google.com/maps/place/${data['location']}" target="_blank">${data['location']}</a></p>
+                        <P>Cân nặng: <strong  style="color:red;">${data['weight']} Kg</strong></p>
+                        <P>Mức độ: <strong  style="color:red;">${data['garbagepercent']} %</strong></p>
+                    </div>
+                </div>
+            </div>`);
+                                    },
+                                    error: function() {
+                                        console.log('lỗi')
+                                    }
+                                })
+                            });
+                        }
+                    },
+                    error: function() {
+                        console.log('Lỗi')
+                    }
+                });
+            });
+        });
+
+
+    <?php else : ?>
+        /* Preload */
+        function loading() {
+            $('.load').delay(1000).show().fadeOut('slow')
+        }
+        /* ĐĂNG NHẬP */
+        $("#Login").on('submit', (function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: "data/login",
+                type: "POST",
+                data: new FormData(this),
+                contentType: false,
+                cache: false,
+                processData: false,
+                beforeSend: function() {
+                    $('#lgbtn').text('Đang xử lý...').prop('disabled', true)
+                },
+                success: function(data) {
+                    $('#lgbtn').text('Đăng nhập').prop('disabled', false)
+                    if (data == true)
+                        swal("Thành công !", "Đăng nhập thành công", "success").then(function() {
+                            loading()
+                            setTimeout(function() {
+                                location.reload()
+                            }, 1000)
+                        })
+                    else if (data == false)
+                        swal("Lỗi đăng nhập!", "Tài khoản hoặc mật khẩu không đúng!", "error")
+                    else if (data == 'null')
+                        swal("Lỗi đăng nhập!", "Vui lòng điền đủ thông tin!", "error")
+                    else
+                        swal("Lỗi đăng nhập!", "Máy chủ không phản hồi dữ liệu!", "error")
+                },
+                error: function() {
+                    swal("Đã xảy ra lỗi!", "Đã xảy ra lỗi cục bộ, vui lòng thử lại!", "error")
+                    $('#lgbtn').text('Đăng nhập').prop('disabled', false)
+                }
+            });
+        }));
     <?php endif; ?>
-        var _0x782a=["\x73\x6C\x6F\x77","\x66\x61\x64\x65\x4F\x75\x74","\x73\x68\x6F\x77","\x64\x65\x6C\x61\x79","\x2E\x6C\x6F\x61\x64","\x73\x75\x62\x6D\x69\x74","\x70\x72\x65\x76\x65\x6E\x74\x44\x65\x66\x61\x75\x6C\x74","\x64\x61\x74\x61\x2F\x6C\x6F\x67\x69\x6E","\x50\x4F\x53\x54","\x64\x69\x73\x61\x62\x6C\x65\x64","\x70\x72\x6F\x70","\u0110\x61\x6E\x67\x20\x78\u1EED\x20\x6C\xFD\x2E\x2E\x2E","\x74\x65\x78\x74","\x23\x6C\x67\x62\x74\x6E","\u0110\u0103\x6E\x67\x20\x6E\x68\u1EAD\x70","\x72\x65\x6C\x6F\x61\x64","\x74\x68\x65\x6E","\x54\x68\xE0\x6E\x68\x20\x63\xF4\x6E\x67\x20\x21","\u0110\u0103\x6E\x67\x20\x6E\x68\u1EAD\x70\x20\x74\x68\xE0\x6E\x68\x20\x63\xF4\x6E\x67","\x73\x75\x63\x63\x65\x73\x73","\x4C\u1ED7\x69\x20\u0111\u0103\x6E\x67\x20\x6E\x68\u1EAD\x70\x21","\x54\xE0\x69\x20\x6B\x68\x6F\u1EA3\x6E\x20\x68\x6F\u1EB7\x63\x20\x6D\u1EAD\x74\x20\x6B\x68\u1EA9\x75\x20\x6B\x68\xF4\x6E\x67\x20\u0111\xFA\x6E\x67\x21","\x65\x72\x72\x6F\x72","\x6E\x75\x6C\x6C","\x56\x75\x69\x20\x6C\xF2\x6E\x67\x20\u0111\x69\u1EC1\x6E\x20\u0111\u1EE7\x20\x74\x68\xF4\x6E\x67\x20\x74\x69\x6E\x21","\x4D\xE1\x79\x20\x63\x68\u1EE7\x20\x6B\x68\xF4\x6E\x67\x20\x70\x68\u1EA3\x6E\x20\x68\u1ED3\x69\x20\x64\u1EEF\x20\x6C\x69\u1EC7\x75\x21","\u0110\xE3\x20\x78\u1EA3\x79\x20\x72\x61\x20\x6C\u1ED7\x69\x21","\u0110\xE3\x20\x78\u1EA3\x79\x20\x72\x61\x20\x6C\u1ED7\x69\x20\x63\u1EE5\x63\x20\x62\u1ED9\x2C\x20\x76\x75\x69\x20\x6C\xF2\x6E\x67\x20\x74\x68\u1EED\x20\x6C\u1EA1\x69\x21","\x61\x6A\x61\x78","\x6F\x6E","\x23\x4C\x6F\x67\x69\x6E"];function loading(){$(_0x782a[4])[_0x782a[3]](1000)[_0x782a[2]]()[_0x782a[1]](_0x782a[0])}$(_0x782a[30])[_0x782a[29]](_0x782a[5],(function(_0x9fe9x2){_0x9fe9x2[_0x782a[6]]();$[_0x782a[28]]({url:_0x782a[7],type:_0x782a[8],data: new FormData(this),contentType:false,cache:false,processData:false,beforeSend:function(){$(_0x782a[13])[_0x782a[12]](_0x782a[11])[_0x782a[10]](_0x782a[9],true)},success:function(_0x9fe9x3){$(_0x782a[13])[_0x782a[12]](_0x782a[14])[_0x782a[10]](_0x782a[9],false);if(_0x9fe9x3== true){swal(_0x782a[17],_0x782a[18],_0x782a[19])[_0x782a[16]](function(){loading();setTimeout(function(){location[_0x782a[15]]()},1000)})}else {if(_0x9fe9x3== false){swal(_0x782a[20],_0x782a[21],_0x782a[22])}else {if(_0x9fe9x3== _0x782a[23]){swal(_0x782a[20],_0x782a[24],_0x782a[22])}else {swal(_0x782a[20],_0x782a[25],_0x782a[22])}}}},error:function(){swal(_0x782a[26],_0x782a[27],_0x782a[22]);$(_0x782a[13])[_0x782a[12]](_0x782a[14])[_0x782a[10]](_0x782a[9],false)}})}))
+
+    /* TABLE */
+    $.fn.dataTable.Buttons.defaults.dom.button.className = 'btn btn-white btn-sm';
+    $(document).ready(function() {
+        $('table').DataTable({
+            pageLength: 10,
+            responsive: true,
+            dom: '<"html5buttons"B>lTfgitp',
+            buttons: [{
+                    extend: 'excel',
+                    title: 'Danh sách quản lý'
+                },
+                {
+                    extend: 'pdf',
+                    title: 'Danh sách quản lý'
+                },
+
+                {
+                    extend: 'print',
+                    customize: function(win) {
+                        $(win.document.body).addClass('white-bg');
+                        $(win.document.body).css('font-size', '10px');
+
+                        $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size', 'inherit');
+                    }
+                }
+            ],
+            "lengthMenu": [
+                [5, 10, 25, 50, -1],
+                [5, 10, 25, 50, "All"]
+            ],
+            "language": {
+                "search": "Tìm Kiếm",
+                "zeroRecords": "Không tìm thấy kết quả",
+                "paginate": {
+                    "first": "Về Đầu",
+                    "last": "Về Cuối",
+                    "next": "Tiến",
+                    "previous": "Lùi"
+                },
+                "info": "Hiển thị _START_ đến _END_ của _TOTAL_ mục",
+                "infoEmpty": "Hiển thị 0 đến 0 của 0 mục",
+                "lengthMenu": "Hiển thị _MENU_ mục",
+                "infoFiltered": "(Được lọc từ _MAX_ Mục)",
+                "loadingRecords": "Đang tải...",
+                "emptyTable": "Không có gì để hiển thị"
+            }
+
+        });
+    });
 </script>
 
 </body>

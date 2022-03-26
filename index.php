@@ -2,6 +2,7 @@
 session_start();
 require './connect/config.php';
 error_reporting(0);
+$title = 'QUẢN LÝ';
 require './pages/head.php';
 $session = $_SESSION['username'];
 //var_dump($row);
@@ -94,7 +95,7 @@ $session = $_SESSION['username'];
                                 </a>
                                 <ul class="dropdown-menu dropdown-alerts">
                                     <li>
-                                        <a href="mailbox.html" class="dropdown-item">
+                                        <a href="#" class="dropdown-item">
                                             <div>
                                                 <i class="fa fa-code fa-fw"></i> Cập nhật lần 2
                                                 <span class="float-right text-muted small">4 minutes ago</span>
@@ -103,7 +104,7 @@ $session = $_SESSION['username'];
                                     </li>
                                     <li class="dropdown-divider"></li>
                                     <li>
-                                        <a href="profile.html" class="dropdown-item">
+                                        <a href="#" class="dropdown-item">
                                             <div>
                                                 <i class="fa fa-code fa-fw"></i> Cập nhật lần 1
                                                 <span class="float-right text-muted small">12 minutes ago</span>
@@ -112,17 +113,17 @@ $session = $_SESSION['username'];
                                     </li>
                                     <li class="dropdown-divider"></li>
                                     <li>
-                                        <a href="grid_options.html" class="dropdown-item">
+                                        <a href="#" class="dropdown-item">
                                             <div>
                                                 <i class="fa fa-upload fa-fw"></i> Kết nối server
-                                                <span class="float-right text-muted small">4 minutes ago</span>
+                                                <span class="float-right text-muted small">2 minutes ago</span>
                                             </div>
                                         </a>
                                     </li>
                                     <li class="dropdown-divider"></li>
                                     <li>
                                         <div class="text-center link-block">
-                                            <a href="notifications.html" class="dropdown-item">
+                                            <a href="#" class="dropdown-item">
                                                 <strong>See All Alerts</strong>
                                                 <i class="fa fa-angle-right"></i>
                                             </a>
@@ -131,7 +132,7 @@ $session = $_SESSION['username'];
                                 </ul>
                             </li>
                             <li>
-                                <a href="logout.php">
+                                <a href="logout.php?destroy=username">
                                     <i class="fa fa-sign-out"></i> Log out
                                 </a>
                             </li>
