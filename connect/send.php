@@ -5,11 +5,11 @@ require './config.php';
 if (isset($_GET['key'])) :
         switch ($_GET['key']) {
                 case 'login':
-                        if (isset($_POST['username']) && isset($_POST['username']) && $_POST['username'] !== '' && $_POST['password'] !== '') {
+                        if (isset($_POST['username']) && isset($_POST['username']) && $_POST['username'] != '' && $_POST['password'] != '') {
                                 $username = htmlspecialchars($_POST['username'], ENT_QUOTES);
                                 $password = htmlspecialchars($_POST['password'], ENT_QUOTES);
                                 $acc = mysqli_fetch_array(mysqli_query($connect, "SELECT * FROM `admin` WHERE `username`='" . $username . "'"));
-                                if (!$acc) {
+                                if (!isset($acc)) {
                                         echo (false);
                                 } else if ($password != $acc['password']) {
                                         echo (false);
@@ -46,7 +46,7 @@ if (isset($_GET['key'])) :
                 case 'adduser':
                         if (isset($_POST['trash_can_id']) && isset($_POST['name']) && isset($_POST['phone']) && isset($_POST['email']) && isset($_POST['address']) && isset($_POST['ward']) && isset($_POST['district']) && isset($_POST['city'])) {
 
-                                if ($_POST['trash_can_id'] !== '' && $_POST['name'] !== '' && $_POST['phone'] !== '' && $_POST['email'] !== '' && $_POST['address'] !== '' && $_POST['ward'] !== '' && $_POST['district'] !== '' && $_POST['city'] !== '') :
+                                if ($_POST['trash_can_id'] != '' && $_POST['name'] != '' && $_POST['phone'] != '' && $_POST['email'] != '' && $_POST['address'] != '' && $_POST['ward'] != '' && $_POST['district'] != '' && $_POST['city'] != '') :
                                         $trash_can_id = htmlspecialchars($_POST['trash_can_id'], ENT_QUOTES);
                                         $name = htmlspecialchars($_POST['name'], ENT_QUOTES);
                                         $dayofbirth = htmlspecialchars($_POST['dayofbirth'], ENT_QUOTES);
@@ -85,7 +85,7 @@ if (isset($_GET['key'])) :
                                 $district = htmlspecialchars($_POST['district'], ENT_QUOTES);
                                 $city = htmlspecialchars($_POST['city'], ENT_QUOTES);
 
-                                if ($_POST['trash_can_id'] !== '' && $_POST['name'] !== '' && $_POST['phone'] !== '' && $_POST['email'] !== '' && $_POST['address'] !== '' && $_POST['ward'] !== '' && $_POST['district'] !== '' && $_POST['city'] !== '') {
+                                if ($_POST['trash_can_id'] != '' && $_POST['name'] != '' && $_POST['phone'] != '' && $_POST['email'] != '' && $_POST['address'] != '' && $_POST['ward'] != '' && $_POST['district'] != '' && $_POST['city'] != '') {
                                         $check_update = mysqli_query($connect, "UPDATE `user` SET `name`='$name',`dayofbirth`='$dayofbirth',`phone`='$phone',`isolatedday`='$isolatedday',`email`='$email',`address`='$address',`ward`='$ward',`district`='$district',`city`='$city' WHERE trash_can_id = '$trash_can_id'");
                                         if ($check_update) {
                                                 echo (true);
@@ -122,7 +122,6 @@ if (isset($_GET['key'])) :
                                 if ($check_delete) {
                                         echo (true);
                                 } else {
-                                        var_dump($check_delete);
                                         echo ($_POST['id']);
                                 }
                                 mysqli_close($connect);
@@ -175,7 +174,7 @@ if (isset($_GET['key'])) :
                         break;
                 case 'trash_can':
                         if (isset($_POST['id'])) {
-                                $xem = mysqli_fetch_assoc(mysqli_query($connect, "SELECT * FROM `trash_can` WHERE `id`='{$_POST['id']}'"));
+                                $xem = mysqli_fetch_array(mysqli_query($connect, "SELECT * FROM `trash_can` WHERE `id`='{$_POST['id']}'"));
                                 if (isset($xem)) {
                                         echo (json_encode($xem));
                                 }
@@ -197,6 +196,8 @@ if (isset($_GET['key'])) :
                         }
                         mysqli_close($connect);
                         break;
+                default:
+                        require('../pages/404.php');
         }
 else :
         die(HACKER);

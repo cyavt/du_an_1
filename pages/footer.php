@@ -24,14 +24,14 @@ if (isset($session)) {
 
 <?php if (isset($_SESSION['username'])) : ?>
     <!-- API MAPS -->
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=<?= KEYMAPAPI; ?>&callback=initMap"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=<?= $config['KEYMAPAPI']; ?>&callback=initMap"></script>
     <script>
         var map
 
         function initMap() {
             map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 17,
-                center: new google.maps.LatLng(<?= TOADOTRUNGTAM; ?>),
+                zoom: <?= $config['ZOOM']; ?>,
+                center: new google.maps.LatLng(<?= $config['TOADOTRUNGTAM']; ?>),
                 mapTypeId: 'roadmap'
             });
 

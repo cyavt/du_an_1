@@ -5,8 +5,6 @@ error_reporting(0);
 $title = 'QUẢN LÝ';
 require './pages/head.php';
 $session = $_SESSION['username'];
-//var_dump($row);
-//die();
 ?>
 
 <body class="boxed-layout">
@@ -42,7 +40,7 @@ $session = $_SESSION['username'];
                             <a href="history.html"><i class="fa fa-history" aria-hidden="true"></i><span class="nav-label">Lịch sử</span></a>
                         </li>
                         <li>
-                            <a href="./logout.php"><i class="fa fa-power-off" aria-hidden="true"></i> <span class="nav-label">Đăng xuất</span></a>
+                            <a href="./logout.php?destroy=username"><i class="fa fa-power-off" aria-hidden="true"></i> <span class="nav-label">Đăng xuất</span></a>
                         </li>
                     <?php endif; ?>
                 </ul>

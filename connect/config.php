@@ -1,7 +1,5 @@
 <?php
 define('HACKER', 'Lỗi không thể truy cập đường dẫn này !');
-define('KEYMAPAPI', 'AIzaSyBH6z9pLP8iIZWzfXFBV_XUjrAY27Vo2XM');
-define('TOADOTRUNGTAM', '16.0765639, 108.2143147');
 define('SERVERNAME', 'localhost');
 define('USERNAME', 'root');
 define('PASSWORD', '');
@@ -14,3 +12,9 @@ if ($connect->connect_error) {
 mysqli_set_charset($connect, "utf8");
 date_default_timezone_set('Asia/Ho_Chi_Minh');
 $datetime = date('Y-m-d H:i:s');
+
+$config = array(
+    'KEYMAPAPI' => 'AIzaSyBH6z9pLP8iIZWzfXFBV_XUjrAY27Vo2XM',
+    'TOADOTRUNGTAM' => '16.0765639, 108.2143147',
+    'ZOOM' => '16'
+);
