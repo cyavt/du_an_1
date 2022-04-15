@@ -51,6 +51,7 @@ if (isset($session)) {
                 url: "data/getMaps",
                 dataType: "json",
                 success: function(data) {
+                    //console.log(data)
                     function addMarker(feature) {
                         var marker = new google.maps.Marker({
                             position: feature.position,
@@ -114,6 +115,51 @@ if (isset($session)) {
             $("#content1").show()
             $("#content2").hide()
         }));
+
+
+        /* $(document).ready(function() {
+            var x=['a','b','d','e','f'];
+            var res= '';
+            $.each(x, function(id, vla) {
+                res += (vla);
+                $('#truc tbody tr').each(function() {
+                $(this).find("td").eq(0).text(res);
+                })
+                //$(this).find("td").eq(2).text('hello')
+                //x.push({id: Id})
+                console.log(vla)
+            });
+            //console.log(x)
+        }) */
+
+        /* Get info */
+        $(function getInfo() {
+            $.ajax({
+                url: "data/getInfo",
+                dataType: "json",
+                success: function(data) {
+                    console.log(data)
+                    /* var td_table = '';
+                    $.each(data, function(na, va) {
+                        $.each(this, function(name, value) {
+                            //td_table += ('<td>' + value + '</td>')
+                            //console.log(name + '=' + value);
+                            //console.log(value)
+                        });
+                        //$('#truc tbody tr').find("td").eq(2).text(na)
+
+                        //console.log(na+' = '+this);
+                    });
+                    //$('#truc tbody').find("td").eq(1).after('hello')
+                    //console.log(td_table)
+                    //setTimeout(getInfo, 3000) */
+                },
+                error: function() {
+                    console.log("Lỗi")
+                }
+            });
+        })
+
 
         /* Thay đổi thông tin nhân viên */
         $("#change").on('submit', (function(e) {

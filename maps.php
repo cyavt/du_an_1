@@ -46,7 +46,7 @@
     </div>
 </div>
 <div class="row m-t-lg">
-    <div class="col-lg-12">
+    <div class="col-xl-12">
         <div class="ibox-content">
             <!-- <iframe width="100%" height="500" style="border:0" loading="lazy" allowfullscreen src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBH6z9pLP8iIZWzfXFBV_XUjrAY27Vo2XM
     &q=16.0790225,108.2105069&zoom=15">

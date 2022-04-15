@@ -206,7 +206,7 @@ $session = $_SESSION['username'];
             </div>
             <div class="wrapper wrapper-content animated fadeInRight">
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-xl-12">
                         <div class="social-feed-separated">
                             <div class="social-feed-box">
                                 <div class="social-avatar">

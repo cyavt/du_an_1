@@ -172,6 +172,21 @@ if (isset($_GET['key'])) :
                                 require('../pages/404.php');
                         }
                         break;
+                case 'getInfo':
+                        $getInTrash = mysqli_query($connect, "SELECT `weight`,`garbagepercent` FROM `trash_can`");
+                        //$getInUser = mysqli_fetch_assoc(mysqli_query($connect, "SELECT `name` FROM `user`"));
+                        if (mysqli_num_rows($getInTrash) > 0) {
+                                $rows = array();
+                                while ($r = mysqli_fetch_row($getInTrash)) {
+                                        $rows[] = $r;
+                                }
+                                echo json_encode($rows);
+                        } else {
+                                echo '{"result": "no data found"}';
+                        }
+
+                        mysqli_close($connect);
+                        break;
                 case 'trash_can':
                         if (isset($_POST['id'])) {
                                 $xem = mysqli_fetch_array(mysqli_query($connect, "SELECT * FROM `trash_can` WHERE `id`='{$_POST['id']}'"));

@@ -1,6 +1,6 @@
 <div class="animated fadeInRight" id="content1">
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-xl-12">
             <div class="ibox ">
                 <div class="ibox-title">
                     <h5 class="text-muted">DANH SÁCH THÙNG RÁC</h5>
@@ -15,7 +15,7 @@
                 </div>
                 <div class="ibox-content">
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover dataTables-example">
+                        <table id="truc" class="table table-striped table-bordered table-hover dataTables-example">
                             <thead>
                                 <tr>
                                     <th>#ID</th>
@@ -34,9 +34,9 @@
                                 ?>
                                     <tr>
                                         <td><?= $row['id']; ?></td>
-                                        <td><?= (isset($name['name'])) ? $name['name'] : '<i class="label label-danger">inactive</i>'; ?></td>
-                                        <td><a href="https://www.google.com/maps/dir/<?= $row['location']; ?>" target="_blank"><?= $row['location']; ?></a></td>
-                                        <td><span class="pie"><?= number_format($row['weight']); ?>/10</span> <?= number_format($row['weight']); ?>kg</td>
+                                        <td id="name"><?= (isset($name['name'])) ? $name['name'] : '<i class="label label-danger">inactive</i>'; ?></td>
+                                        <td><a href="https://www.google.com/maps/place/<?= $row['location']; ?>" target="_blank"><?= $row['location']; ?></a></td>
+                                        <td><span class="pie"><?= $row['weight']; ?>/10</span> <?=$row['weight']; ?> kg</td>
                                         <td class="project-completion">
                                             <small><?= number_format($row['garbagepercent']); ?>%</small>
                                             <div class="progress progress-mini">
