@@ -173,11 +173,11 @@ if (isset($_GET['key'])) :
                         }
                         break;
                 case 'getInfo':
-                        $getInTrash = mysqli_query($connect, "SELECT `weight`,`garbagepercent` FROM `trash_can`");
+                        $getInTrash = mysqli_query($connect, "SELECT `id`, `weight`,`garbagepercent` FROM `trash_can`");
                         //$getInUser = mysqli_fetch_assoc(mysqli_query($connect, "SELECT `name` FROM `user`"));
                         if (mysqli_num_rows($getInTrash) > 0) {
                                 $rows = array();
-                                while ($r = mysqli_fetch_row($getInTrash)) {
+                                while ($r = mysqli_fetch_assoc($getInTrash)) {
                                         $rows[] = $r;
                                 }
                                 echo json_encode($rows);

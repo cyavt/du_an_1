@@ -1,16 +1,14 @@
 <?php
 require './config.php';
-var_dump($_POST); // trả dữ liệu về cho server
+var_dump($_POST);
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $token = test_input($_POST["token"]);
     $check_token = mysqli_fetch_array(mysqli_query($connect, "SELECT * FROM `trash_can` WHERE `token`='$token'"));
     if (isset($check_token)) {
-        //Gán biến
         $location = test_input($_POST["location"]);
         $weight = test_input($_POST["weight"]);
         $garbagepercent = test_input($_POST["garbagepercent"]);
         $uid = test_input($_POST["uid"]);
-        //kết nốt -> update cơ sở dữ liệu
             $update = "UPDATE `trash_can` SET `location`='$location',`weight`='$weight',`garbagepercent`='$garbagepercent' WHERE `token`='$token'";
             if ($connect->query($update) === TRUE){
                 echo "success update";
@@ -31,7 +29,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }else{
                 echo " | Không phải nhân viên -> Log thất bại !";
             }
-        //đóng kết nối
         $connect->close();
     } else {
         echo ('Không tồn tại token');

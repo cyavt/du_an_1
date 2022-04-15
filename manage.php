@@ -15,7 +15,7 @@
                 </div>
                 <div class="ibox-content">
                     <div class="table-responsive">
-                        <table id="truc" class="table table-striped table-bordered table-hover dataTables-example">
+                        <table id="updateTable" class="table table-striped table-bordered table-hover dataTables-example">
                             <thead>
                                 <tr>
                                     <th>#ID</th>
@@ -32,20 +32,19 @@
                                 foreach ($result as $row) :
                                     $name = mysqli_fetch_array(mysqli_query($connect, "SELECT * FROM `user` WHERE `trash_can_id`='{$row['id']}'"));
                                 ?>
-                                    <tr>
-                                        <td><?= $row['id']; ?></td>
-                                        <td id="name"><?= (isset($name['name'])) ? $name['name'] : '<i class="label label-danger">inactive</i>'; ?></td>
-                                        <td><a href="https://www.google.com/maps/place/<?= $row['location']; ?>" target="_blank"><?= $row['location']; ?></a></td>
-                                        <td><span class="pie"><?= $row['weight']; ?>/10</span> <?=$row['weight']; ?> kg</td>
-                                        <td class="project-completion">
-                                            <small><?= number_format($row['garbagepercent']); ?>%</small>
+                                    <tr id="<?= $row['id']; ?>">
+                                        <td name="id"><?= $row['id']; ?></td>
+                                        <td name="name"><?=(isset($name['name'])) ? $name['name'] : '<i class="label label-danger">inactive</i>'; ?></td>
+                                        <td name="location"><a href="https://www.google.com/maps/place/<?=$row['location'];?>" target="_blank"><?= $row['location']; ?></a></td>
+                                        <td name="weight"><span class="pie"><?= $row['weight']; ?>/10</span> <?=$row['weight'];?> kg</td>
+                                        <td name="garbagepercent" class="project-completion">
+                                            <small><?=$row['garbagepercent'];?>%</small>
                                             <div class="progress progress-mini">
-                                                <div style="width: <?= number_format($row['garbagepercent']); ?>%;" class="progress-bar <?php if (number_format($row['garbagepercent']) >= 70) {
-                                                                                                                                            echo ('progress-bar-danger');
-                                                                                                                                        } ?>"></div>
+                                                <div style="width: <?=$row['garbagepercent'];?>%;" class="progress-bar <?=(number_format($row['garbagepercent']) >= 70) ? 'progress-bar-danger' :'';?>">
+                                                </div>
                                             </div>
                                         </td>
-                                        <td>
+                                        <td name="button">
                                             <div class="text-center">
                                                 <?php if (isset($name['name'])) : ?>
                                                     <button class="btn btn-primary" onclick="xem('<?= $row['id']; ?>')"><i class="fa fa-long-arrow-right"></i></button>

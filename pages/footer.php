@@ -118,41 +118,35 @@ if (isset($session)) {
 
 
         /* $(document).ready(function() {
-            var x=['a','b','d','e','f'];
-            var res= '';
-            $.each(x, function(id, vla) {
-                res += (vla);
-                $('#truc tbody tr').each(function() {
-                $(this).find("td").eq(0).text(res);
-                })
-                //$(this).find("td").eq(2).text('hello')
-                //x.push({id: Id})
-                console.log(vla)
+            const x=[];
+            $('#updateTable tbody tr').each(function() {
+                const Id = $(this).find("td").eq(3).text()
+                x.push({id: Id})
             });
-            //console.log(x)
+            console.log(x)
         }) */
 
         /* Get info */
-        $(function getInfo() {
+        $(function getUpdate() {
             $.ajax({
                 url: "data/getInfo",
                 dataType: "json",
                 success: function(data) {
-                    console.log(data)
-                    /* var td_table = '';
-                    $.each(data, function(na, va) {
-                        $.each(this, function(name, value) {
-                            //td_table += ('<td>' + value + '</td>')
-                            //console.log(name + '=' + value);
-                            //console.log(value)
-                        });
-                        //$('#truc tbody tr').find("td").eq(2).text(na)
-
-                        //console.log(na+' = '+this);
+                    const list = $('#updateTable tbody tr')
+                    $.each(list, function(index, va) {
+                        const id = va.getAttribute("id")
+                        const newData = data.find(x => x.id === id)
+                        const listTD = $(va).find('td').each((i, td) => {
+                            const name = td.getAttribute("name")
+                            const columnNames = Object.keys(newData)
+                            const isUpdate = columnNames.includes(name)
+                            if (isUpdate) {
+                                $(td).text(newData[name])
+                            }
+                        })
                     });
-                    //$('#truc tbody').find("td").eq(1).after('hello')
-                    //console.log(td_table)
-                    //setTimeout(getInfo, 3000) */
+                    console.log(data)
+                    setTimeout(getUpdate, 5000)
                 },
                 error: function() {
                     console.log("Lỗi")
