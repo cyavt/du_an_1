@@ -3,7 +3,7 @@
 - File kết nối mysql: /connect/config.php
 - Trang admin: url: /admin => Username: admin | Password: admin
 - Phương thức giao tiếp: 
-json = {
+Api_json = {
         "token" : value,
         "location" : value,
         "weight" : value,
