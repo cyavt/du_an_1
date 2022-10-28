@@ -2,5 +2,12 @@
 - Url connect data: /connect/data.php
 - File kết nối mysql: /connect/config.php
 - Trang admin: url: /admin => Username: admin | Password: admin
-- Phương thức giao tiếp: httpRequestData = "token=" + token + "&location=" + location + "&weight=" + weight + "&garbagepercent=" + garbagepercent + "&uid=" + uid +""
+- Phương thức giao tiếp: 
+json = {
+        "token" : value,
+        "location" : value,
+        "weight" : value,
+        "garbagepercent" : value,
+        "uid" : value
+       }
 #### php
